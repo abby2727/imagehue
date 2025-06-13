@@ -1,8 +1,10 @@
 import React from 'react';
+import { X } from 'lucide-react';
 import ControlButtons from './ControlButtons';
 import ImageUploadArea from './ImageUploadArea';
 import InstructionsPanel from './InstructionsPanel';
 import MagnifyingGlass from './MagnifyingGlass';
+import useDismissibleNotification from '../hooks/useDismissibleNotification';
 
 /**
  * ImageCanvas Component
@@ -22,6 +24,8 @@ const ImageCanvas = ({
 	showMagnifier,
 	mousePosition
 }) => {
+	const { isVisible: showMagnifyHint, dismiss: dismissMagnifyHint } =
+		useDismissibleNotification('magnify-hint-dismissed', 1);
 	return (
 		<div className='lg:col-span-2'>
 			<div className='glass-card p-6'>
@@ -34,9 +38,9 @@ const ImageCanvas = ({
 				/>
 
 				{/* Magnify Hint */}
-				{imageLoaded && (
-					<div className='mb-1 p-2 bg-amber-100/80 border border-amber-300 rounded-lg'>
-						<div className='flex items-center justify-center gap-2'>
+				{imageLoaded && showMagnifyHint && (
+					<div className='mb-1 p-2 bg-amber-100/80 border border-amber-300 rounded-lg relative'>
+						<div className='flex items-center justify-center gap-2 pr-6'>
 							<span className='text-amber-600 text-lg'>🔍</span>
 							<p className='text-amber-800 text-sm font-medium'>
 								Hold{' '}
@@ -46,6 +50,14 @@ const ImageCanvas = ({
 								while hovering to magnify
 							</p>
 						</div>
+						<button
+							onClick={dismissMagnifyHint}
+							className='absolute top-1 right-1 p-1 text-amber-600 hover:text-amber-800 hover:bg-amber-200 rounded transition-colors'
+							title='Dismiss (will reappear tomorrow)'
+							aria-label='Dismiss magnify hint'
+						>
+							<X size={14} />
+						</button>
 					</div>
 				)}
 
