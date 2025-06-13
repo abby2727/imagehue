@@ -97,8 +97,8 @@ const MagnifyingGlass = ({
 			// Draw border
 			drawBorder(magnifyCtx, size);
 
-			// Draw center crosshair
-			drawCrosshair(magnifyCtx, size);
+			// Draw center square highlight
+			drawCenterSquare(magnifyCtx, size, zoomLevel);
 		} catch (error) {
 			console.warn('Error drawing magnifying glass:', error);
 		}
@@ -169,27 +169,29 @@ const MagnifyingGlass = ({
 	};
 
 	/**
-	 * Draw crosshair at the center
+	 * Draw center square highlight
 	 */
-	const drawCrosshair = (ctx, canvasSize) => {
+	const drawCenterSquare = (ctx, canvasSize, zoom) => {
 		ctx.save();
-		ctx.strokeStyle = 'rgba(255, 0, 0, 0.8)';
-		ctx.lineWidth = 1;
 
+		const gridSize = canvasSize / zoom;
 		const center = canvasSize / 2;
-		const crosshairSize = 8;
 
-		// Horizontal line
-		ctx.beginPath();
-		ctx.moveTo(center - crosshairSize, center);
-		ctx.lineTo(center + crosshairSize, center);
-		ctx.stroke();
+		// Calculate the center grid square boundaries
+		const centerGridX = Math.floor(zoom / 2);
+		const centerGridY = Math.floor(zoom / 2);
 
-		// Vertical line
-		ctx.beginPath();
-		ctx.moveTo(center, center - crosshairSize);
-		ctx.lineTo(center, center + crosshairSize);
-		ctx.stroke();
+		const squareX = centerGridX * gridSize;
+		const squareY = centerGridY * gridSize;
+
+		// Fill the center square with a semi-transparent highlight
+		ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
+		ctx.fillRect(squareX, squareY, gridSize, gridSize);
+
+		// Draw a thicker border around the center square
+		ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+		ctx.lineWidth = 2;
+		ctx.strokeRect(squareX, squareY, gridSize, gridSize);
 
 		ctx.restore();
 	};
