@@ -22,6 +22,36 @@ A modern, responsive web application that allows users to upload or paste images
 -   **HTML Canvas API** - For image manipulation and color extraction
 -   **Clipboard API** - For copying color values and pasting images
 
+## Architecture & Code Organization
+
+The application follows modern React best practices with a modular, component-based architecture:
+
+### **Component Structure**
+
+-   **Functional Components**: All components are functional with hooks
+-   **Single Responsibility**: Each component has a focused, specific purpose
+-   **Reusable Design**: Components are designed for reusability and maintainability
+-   **Props Interface**: Clear prop interfaces for component communication
+
+### **Custom Hooks**
+
+-   **useFeedback**: Manages user feedback messages and notifications
+-   **useImageHandler**: Handles all image loading, canvas operations, and color picking
+-   **useClipboard**: Manages clipboard operations with browser compatibility
+
+### **State Management**
+
+-   **Local State**: Uses React's built-in state management with hooks
+-   **Custom Hooks**: Logic separation for better organization and reusability
+-   **Prop Drilling**: Minimal prop drilling with focused component responsibilities
+
+### **Code Quality Features**
+
+-   **TypeScript-ready**: JSDoc comments for better developer experience
+-   **Error Handling**: Comprehensive error handling with user feedback
+-   **Browser Compatibility**: Fallbacks for older browsers
+-   **Performance**: Optimized with useCallback and useMemo where appropriate
+
 ## Getting Started
 
 ### Prerequisites
@@ -87,15 +117,31 @@ The built files will be in the `dist` directory, ready for deployment to any sta
 pixelpick/
 ├── public/
 ├── src/
-│   ├── App.jsx          # Main application component
-│   ├── main.jsx         # React entry point
-│   └── index.css        # Global styles and Tailwind imports
-├── index.html           # HTML template
-├── package.json         # Dependencies and scripts
-├── tailwind.config.js   # Tailwind CSS configuration
-├── postcss.config.js    # PostCSS configuration
-├── vite.config.js       # Vite build configuration
-└── README.md           # This file
+│   ├── components/           # Reusable UI components
+│   │   ├── Header.jsx       # App header with title and logo
+│   │   ├── ImageCanvas.jsx  # Main canvas area with controls
+│   │   ├── ControlButtons.jsx # Upload, paste, reset buttons
+│   │   ├── ColorInfoPanel.jsx # Color information sidebar
+│   │   ├── ColorDisplay.jsx # Color preview and values
+│   │   ├── ImageUploadArea.jsx # Upload placeholder
+│   │   ├── InstructionsPanel.jsx # Usage instructions
+│   │   ├── EmptyColorState.jsx # No color selected state
+│   │   ├── FeedbackMessage.jsx # Floating feedback messages
+│   │   └── index.js        # Component exports
+│   ├── hooks/              # Custom React hooks
+│   │   ├── useFeedback.js  # Feedback message management
+│   │   ├── useImageHandler.js # Image loading and processing
+│   │   ├── useClipboard.js # Clipboard operations
+│   │   └── index.js        # Hook exports
+│   ├── App.jsx             # Main application orchestrator
+│   ├── main.jsx            # React entry point
+│   └── index.css           # Global styles and Tailwind imports
+├── index.html              # HTML template
+├── package.json            # Dependencies and scripts
+├── tailwind.config.js      # Tailwind CSS configuration
+├── postcss.config.js       # PostCSS configuration
+├── vite.config.js          # Vite build configuration
+└── README.md              # This file
 ```
 
 ## Browser Compatibility

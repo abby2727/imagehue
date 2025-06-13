@@ -1,0 +1,10 @@
+// Export all components from a central location for easier imports
+export { default as Header } from './Header';
+export { default as ControlButtons } from './ControlButtons';
+export { default as ImageCanvas } from './ImageCanvas';
+export { default as ImageUploadArea } from './ImageUploadArea';
+export { default as InstructionsPanel } from './InstructionsPanel';
+export { default as ColorInfoPanel } from './ColorInfoPanel';
+export { default as ColorDisplay } from './ColorDisplay';
+export { default as EmptyColorState } from './EmptyColorState';
+export { default as FeedbackMessage } from './FeedbackMessage';
