@@ -1,6 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { Copy, ChevronDown, ChevronUp } from 'lucide-react';
 import { getAllColorFormats } from '../utils/colorConversions';
+import ColorVariations from './ColorVariations';
 
 /**
  * ColorDisplay Component
@@ -284,6 +285,12 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 						</div>
 					</div>
 				)}
+
+				{/* Color Variations */}
+				<ColorVariations
+					selectedColor={selectedColor}
+					onCopy={onCopy}
+				/>
 			</div>
 		</div>
 	);
