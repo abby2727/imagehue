@@ -49,6 +49,25 @@ body {
 		transform: translateZ(0);
 		isolation: isolate;
 	}
+
+	/* React Colorful Styling */
+	.react-colorful {
+		@apply rounded-lg border border-gray-300 shadow-sm;
+	}
+
+	.react-colorful__saturation {
+		@apply rounded-t-lg;
+	}
+
+	.react-colorful__hue {
+		@apply rounded-b-lg;
+		height: 24px;
+	}
+
+	.react-colorful__pointer {
+		@apply border-2 border-white shadow-lg;
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+	}
 }
 
 /* Custom scrollbar */
