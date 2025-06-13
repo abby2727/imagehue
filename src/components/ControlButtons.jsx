@@ -12,7 +12,7 @@ const ControlButtons = ({
 	isLoading
 }) => {
 	return (
-		<div className='flex flex-wrap gap-3 mb-6'>
+		<div className='flex flex-wrap gap-3 mb-3'>
 			<button
 				onClick={onUploadClick}
 				className='copy-button'

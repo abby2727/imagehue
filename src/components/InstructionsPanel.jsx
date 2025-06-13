@@ -6,19 +6,13 @@ import React from 'react';
  */
 const InstructionsPanel = () => {
 	return (
-		<div className='mt-4 text-white/70 text-sm'>
-			<p>
-				<strong>Instructions:</strong>
-			</p>
-			<ul className='list-disc list-inside mt-2 space-y-1'>
+		<div className='mt-4 text-white text-sm'>
+			<p className='font-semibold mb-2'>Instructions:</p>
+			<ul className='list-disc list-inside space-y-1 text-white/90'>
 				<li>Click "Upload Image" to select a file from your device</li>
 				<li>
 					Click "Paste from Clipboard" or use Ctrl+V (Cmd+V on Mac) to
 					paste images
-				</li>
-				<li>
-					<strong>Hold Ctrl</strong> while hovering over the image to
-					see a magnified view with grid overlay
 				</li>
 				<li>Click anywhere on the image to pick a color</li>
 				<li>Color values will appear in the panel on the right</li>

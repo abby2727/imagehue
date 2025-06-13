@@ -33,6 +33,22 @@ const ImageCanvas = ({
 					isLoading={isLoading}
 				/>
 
+				{/* Magnify Hint */}
+				{imageLoaded && (
+					<div className='mb-1 p-2 bg-amber-500/15 border border-amber-500/30 rounded-lg'>
+						<div className='flex items-center justify-center gap-2'>
+							<span className='text-amber-300 text-lg'>🔍</span>
+							<p className='text-amber-100 text-sm font-medium'>
+								Hold{' '}
+								<kbd className='px-1.5 py-0.5 bg-amber-500/40 rounded text-xs font-bold'>
+									Ctrl
+								</kbd>{' '}
+								while hovering to magnify
+							</p>
+						</div>
+					</div>
+				)}
+
 				{/* Canvas Container */}
 				<div className='canvas-container'>
 					{/* Loading Overlay */}
