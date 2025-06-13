@@ -10,6 +10,7 @@ import Header from './components/Header';
 import ImageCanvas from './components/ImageCanvas';
 import ColorInfoPanel from './components/ColorInfoPanel';
 import FeedbackMessage from './components/FeedbackMessage';
+import MagnifyingGlass from './components/MagnifyingGlass';
 
 /**
  * PixelPick - Main Application Component
@@ -25,11 +26,16 @@ const App = () => {
 		selectedColor,
 		isLoading,
 		imageLoaded,
+		showMagnifier,
+		mousePosition,
 		// Refs
 		canvasRef,
 		fileInputRef,
 		// Handlers
 		handleCanvasClick,
+		handleCanvasMouseMove,
+		handleCanvasMouseEnter,
+		handleCanvasMouseLeave,
 		handleUploadClick,
 		handleFileUpload,
 		handleClipboardPaste,
@@ -48,11 +54,16 @@ const App = () => {
 					<ImageCanvas
 						canvasRef={canvasRef}
 						onCanvasClick={handleCanvasClick}
+						onCanvasMouseMove={handleCanvasMouseMove}
+						onCanvasMouseEnter={handleCanvasMouseEnter}
+						onCanvasMouseLeave={handleCanvasMouseLeave}
 						onUploadClick={handleUploadClick}
 						onPasteClick={handleClipboardPaste}
 						onResetClick={resetApp}
 						isLoading={isLoading}
 						imageLoaded={imageLoaded}
+						showMagnifier={showMagnifier}
+						mousePosition={mousePosition}
 					/>
 
 					{/* Color Information Panel */}
@@ -74,6 +85,15 @@ const App = () => {
 					className='hidden'
 				/>
 			</div>
+
+			{/* Magnifying Glass - Rendered at App level for maximum z-index */}
+			<MagnifyingGlass
+				isVisible={showMagnifier && imageLoaded}
+				mousePosition={mousePosition}
+				sourceCanvas={canvasRef.current}
+				zoomLevel={8}
+				size={120}
+			/>
 		</div>
 	);
 };

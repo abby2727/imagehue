@@ -10,6 +10,7 @@ A modern, responsive web application that allows users to upload or paste images
 -   📝 **Multiple Formats**: Get both Hex (#RRGGBB) and RGB (r, g, b) values
 -   📱 **Responsive Design**: Works seamlessly on desktop and mobile devices
 -   🎯 **One-Click Copy**: Copy color values to clipboard instantly
+-   🔍 **Magnifying Glass**: Hover over images to see an 8x zoomed view with grid overlay
 -   🔄 **Reset Function**: Clear current image and start fresh
 -   🌐 **Default Sample**: Loads with a beautiful default image
 
@@ -99,6 +100,7 @@ The built files will be in the `dist` directory, ready for deployment to any sta
 
 2. **Pick Colors**:
 
+    - Hover over the image to see a magnified view for precise color selection
     - Click anywhere on the image to select that pixel's color
     - The color information will appear in the right panel
 
@@ -127,6 +129,7 @@ pixelpick/
 │   │   ├── InstructionsPanel.jsx # Usage instructions
 │   │   ├── EmptyColorState.jsx # No color selected state
 │   │   ├── FeedbackMessage.jsx # Floating feedback messages
+│   │   ├── MagnifyingGlass.jsx # Zoom magnifier with grid overlay
 │   │   └── index.js        # Component exports
 │   ├── hooks/              # Custom React hooks
 │   │   ├── useFeedback.js  # Feedback message management

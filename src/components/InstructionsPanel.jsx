@@ -16,6 +16,10 @@ const InstructionsPanel = () => {
 					Click "Paste from Clipboard" or use Ctrl+V (Cmd+V on Mac) to
 					paste images
 				</li>
+				<li>
+					<strong>Hold Ctrl</strong> while hovering over the image to
+					see a magnified view with grid overlay
+				</li>
 				<li>Click anywhere on the image to pick a color</li>
 				<li>Color values will appear in the panel on the right</li>
 			</ul>

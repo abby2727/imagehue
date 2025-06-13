@@ -2,6 +2,7 @@ import React from 'react';
 import ControlButtons from './ControlButtons';
 import ImageUploadArea from './ImageUploadArea';
 import InstructionsPanel from './InstructionsPanel';
+import MagnifyingGlass from './MagnifyingGlass';
 
 /**
  * ImageCanvas Component
@@ -10,11 +11,16 @@ import InstructionsPanel from './InstructionsPanel';
 const ImageCanvas = ({
 	canvasRef,
 	onCanvasClick,
+	onCanvasMouseMove,
+	onCanvasMouseEnter,
+	onCanvasMouseLeave,
 	onUploadClick,
 	onPasteClick,
 	onResetClick,
 	isLoading,
-	imageLoaded
+	imageLoaded,
+	showMagnifier,
+	mousePosition
 }) => {
 	return (
 		<div className='lg:col-span-2'>
@@ -42,6 +48,9 @@ const ImageCanvas = ({
 					<canvas
 						ref={canvasRef}
 						onClick={onCanvasClick}
+						onMouseMove={onCanvasMouseMove}
+						onMouseEnter={onCanvasMouseEnter}
+						onMouseLeave={onCanvasMouseLeave}
 						className='w-full h-auto cursor-crosshair bg-white/5'
 						style={{ minHeight: '300px' }}
 					/>

@@ -8,6 +8,10 @@ const useImageHandler = (showFeedback) => {
 	const [selectedColor, setSelectedColor] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
 	const [imageLoaded, setImageLoaded] = useState(false);
+	const [showMagnifier, setShowMagnifier] = useState(false);
+	const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+	const [isCtrlPressed, setIsCtrlPressed] = useState(false);
+	const [isHoveringCanvas, setIsHoveringCanvas] = useState(false);
 
 	const canvasRef = useRef(null);
 	const fileInputRef = useRef(null);
@@ -201,6 +205,68 @@ const useImageHandler = (showFeedback) => {
 	}, [loadImage, showFeedback]);
 
 	/**
+	 * Handle mouse move over canvas for magnifying glass
+	 */
+	const handleCanvasMouseMove = useCallback(
+		(event) => {
+			if (!imageLoaded) return;
+
+			setMousePosition({
+				x: event.clientX,
+				y: event.clientY
+			});
+		},
+		[imageLoaded]
+	);
+
+	/**
+	 * Handle mouse enter canvas
+	 */
+	const handleCanvasMouseEnter = useCallback(() => {
+		if (imageLoaded) {
+			setIsHoveringCanvas(true);
+			// Only show magnifier if Ctrl is also pressed
+			if (isCtrlPressed) {
+				setShowMagnifier(true);
+			}
+		}
+	}, [imageLoaded, isCtrlPressed]);
+
+	/**
+	 * Handle mouse leave canvas
+	 */
+	const handleCanvasMouseLeave = useCallback(() => {
+		setIsHoveringCanvas(false);
+		setShowMagnifier(false);
+	}, []);
+
+	/**
+	 * Handle keydown events for Ctrl key
+	 */
+	const handleKeyDown = useCallback(
+		(event) => {
+			if (event.key === 'Control') {
+				setIsCtrlPressed(true);
+				// Show magnifier if also hovering over canvas
+				if (isHoveringCanvas && imageLoaded) {
+					setShowMagnifier(true);
+				}
+			}
+		},
+		[isHoveringCanvas, imageLoaded]
+	);
+
+	/**
+	 * Handle keyup events for Ctrl key
+	 */
+	const handleKeyUp = useCallback((event) => {
+		if (event.key === 'Control') {
+			setIsCtrlPressed(false);
+			setShowMagnifier(false);
+		}
+	}, []);
+
+	/**
 	 * Handle canvas click to pick color from image
 	 */
 	const handleCanvasClick = useCallback(
@@ -251,6 +317,10 @@ const useImageHandler = (showFeedback) => {
 		setImage(null);
 		setSelectedColor(null);
 		setImageLoaded(false);
+		setShowMagnifier(false);
+		setMousePosition({ x: 0, y: 0 });
+		setIsCtrlPressed(false);
+		setIsHoveringCanvas(false);
 
 		const canvas = canvasRef.current;
 		if (canvas) {
@@ -281,17 +351,34 @@ const useImageHandler = (showFeedback) => {
 		};
 	}, [handlePaste]);
 
+	// Add global keyboard event listeners for Ctrl key
+	useEffect(() => {
+		document.addEventListener('keydown', handleKeyDown);
+		document.addEventListener('keyup', handleKeyUp);
+
+		// Clean up Ctrl state when component unmounts
+		return () => {
+			document.removeEventListener('keydown', handleKeyDown);
+			document.removeEventListener('keyup', handleKeyUp);
+		};
+	}, [handleKeyDown, handleKeyUp]);
+
 	return {
 		// State
 		image,
 		selectedColor,
 		isLoading,
 		imageLoaded,
+		showMagnifier,
+		mousePosition,
 		// Refs
 		canvasRef,
 		fileInputRef,
 		// Handlers
 		handleCanvasClick,
+		handleCanvasMouseMove,
+		handleCanvasMouseEnter,
+		handleCanvasMouseLeave,
 		handleUploadClick,
 		handleFileUpload,
 		handleClipboardPaste,

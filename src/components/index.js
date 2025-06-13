@@ -8,3 +8,4 @@ export { default as ColorInfoPanel } from './ColorInfoPanel';
 export { default as ColorDisplay } from './ColorDisplay';
 export { default as EmptyColorState } from './EmptyColorState';
 export { default as FeedbackMessage } from './FeedbackMessage';
+export { default as MagnifyingGlass } from './MagnifyingGlass';

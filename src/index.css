@@ -41,6 +41,14 @@ body {
 	.canvas-container {
 		@apply relative overflow-hidden rounded-lg border border-white/20 shadow-lg;
 	}
+
+	.magnifying-glass {
+		@apply pointer-events-none select-none;
+		will-change: transform, left, top;
+		backface-visibility: hidden;
+		transform: translateZ(0);
+		isolation: isolate;
+	}
 }
 
 /* Custom scrollbar */
