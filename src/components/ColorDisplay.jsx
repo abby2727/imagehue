@@ -1,11 +1,24 @@
-import React from 'react';
-import { Copy } from 'lucide-react';
+import React, { useState, useMemo } from 'react';
+import { Copy, ChevronDown, ChevronUp } from 'lucide-react';
+import { getAllColorFormats } from '../utils/colorConversions';
 
 /**
  * ColorDisplay Component
  * Shows the selected color preview and values with copy functionality
  */
 const ColorDisplay = ({ selectedColor, onCopy }) => {
+	const [showMoreFormats, setShowMoreFormats] = useState(false);
+
+	// Calculate all color formats when selectedColor changes
+	const allFormats = useMemo(() => {
+		if (!selectedColor) return null;
+		return getAllColorFormats(
+			selectedColor.r,
+			selectedColor.g,
+			selectedColor.b
+		);
+	}, [selectedColor]);
+
 	if (!selectedColor) {
 		return null;
 	}
@@ -71,7 +84,7 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 				</div>
 
 				{/* Individual RGB Components */}
-				<div className='grid grid-cols-3 gap-3'>
+				{/* <div className='grid grid-cols-3 gap-3'>
 					<div>
 						<label className='block text-white/70 text-xs mb-1'>
 							Red
@@ -96,10 +109,10 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 							{selectedColor.b}
 						</div>
 					</div>
-				</div>
+				</div> */}
 
 				{/* Quick Copy Buttons */}
-				<div className='space-y-2'>
+				{/* <div className='space-y-2'>
 					<button
 						onClick={() => onCopy(selectedColor.hex)}
 						className='copy-button w-full justify-center'
@@ -114,7 +127,163 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 						<Copy className='w-4 h-4' />
 						Copy RGB ({selectedColor.rgb})
 					</button>
+				</div> */}
+
+				{/* Show More Toggle */}
+				<div className='pt-4 border-t border-white/10'>
+					<button
+						onClick={() => setShowMoreFormats(!showMoreFormats)}
+						className='w-full flex items-center justify-center gap-2 p-3 bg-white/5 hover:bg-white/10 rounded-lg transition-colors group'
+					>
+						<span className='text-white/80 font-medium'>
+							{showMoreFormats
+								? 'Show Less'
+								: 'Show More Color Formats'}
+						</span>
+						{showMoreFormats ? (
+							<ChevronUp className='w-4 h-4 text-white/60 group-hover:text-white/80 transition-colors' />
+						) : (
+							<ChevronDown className='w-4 h-4 text-white/60 group-hover:text-white/80 transition-colors' />
+						)}
+					</button>
 				</div>
+
+				{/* Extended Color Formats */}
+				{showMoreFormats && allFormats && (
+					<div className='space-y-3 pt-4 border-t border-white/10'>
+						{/* HSL */}
+						<div>
+							<label className='block text-white/70 text-sm mb-2'>
+								HSL
+							</label>
+							<div className='flex items-center gap-2'>
+								<input
+									type='text'
+									value={allFormats.hsl}
+									readOnly
+									className='flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white font-mono text-sm'
+								/>
+								<button
+									onClick={() => onCopy(allFormats.hsl)}
+									className='p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors'
+									title='Copy HSL value'
+								>
+									<Copy className='w-4 h-4 text-white' />
+								</button>
+							</div>
+						</div>
+
+						{/* XYZ */}
+						<div>
+							<label className='block text-white/70 text-sm mb-2'>
+								XYZ
+							</label>
+							<div className='flex items-center gap-2'>
+								<input
+									type='text'
+									value={allFormats.xyz}
+									readOnly
+									className='flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white font-mono text-sm'
+								/>
+								<button
+									onClick={() => onCopy(allFormats.xyz)}
+									className='p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors'
+									title='Copy XYZ value'
+								>
+									<Copy className='w-4 h-4 text-white' />
+								</button>
+							</div>
+						</div>
+
+						{/* CMYK */}
+						<div>
+							<label className='block text-white/70 text-sm mb-2'>
+								CMYK
+							</label>
+							<div className='flex items-center gap-2'>
+								<input
+									type='text'
+									value={allFormats.cmyk}
+									readOnly
+									className='flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white font-mono text-sm'
+								/>
+								<button
+									onClick={() => onCopy(allFormats.cmyk)}
+									className='p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors'
+									title='Copy CMYK value'
+								>
+									<Copy className='w-4 h-4 text-white' />
+								</button>
+							</div>
+						</div>
+
+						{/* LAB */}
+						<div>
+							<label className='block text-white/70 text-sm mb-2'>
+								LAB
+							</label>
+							<div className='flex items-center gap-2'>
+								<input
+									type='text'
+									value={allFormats.lab}
+									readOnly
+									className='flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white font-mono text-sm'
+								/>
+								<button
+									onClick={() => onCopy(allFormats.lab)}
+									className='p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors'
+									title='Copy LAB value'
+								>
+									<Copy className='w-4 h-4 text-white' />
+								</button>
+							</div>
+						</div>
+
+						{/* LUV */}
+						<div>
+							<label className='block text-white/70 text-sm mb-2'>
+								LUV
+							</label>
+							<div className='flex items-center gap-2'>
+								<input
+									type='text'
+									value={allFormats.luv}
+									readOnly
+									className='flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white font-mono text-sm'
+								/>
+								<button
+									onClick={() => onCopy(allFormats.luv)}
+									className='p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors'
+									title='Copy LUV value'
+								>
+									<Copy className='w-4 h-4 text-white' />
+								</button>
+							</div>
+						</div>
+
+						{/* HWB */}
+						<div>
+							<label className='block text-white/70 text-sm mb-2'>
+								HWB
+							</label>
+							<div className='flex items-center gap-2'>
+								<input
+									type='text'
+									value={allFormats.hwb}
+									readOnly
+									className='flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white font-mono text-sm'
+								/>
+								<button
+									onClick={() => onCopy(allFormats.hwb)}
+									className='p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors'
+									title='Copy HWB value'
+								>
+									<Copy className='w-4 h-4 text-white' />
+								</button>
+							</div>
+						</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);
