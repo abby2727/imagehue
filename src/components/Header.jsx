@@ -1,5 +1,6 @@
 import React from 'react';
 import { Palette } from 'lucide-react';
+import packageJson from '../../package.json';
 
 /**
  * Header Component
@@ -15,7 +16,7 @@ const Header = () => {
 						<Palette className='w-8 h-8 text-gray-700' />
 						<div>
 							<h1 className='text-2xl font-bold text-gray-800'>
-								PixelPick
+								ImageHue
 							</h1>
 							<p className='text-sm text-gray-600 hidden sm:block'>
 								Professional Color Picker & Image Color
@@ -24,13 +25,10 @@ const Header = () => {
 						</div>
 					</div>
 
-					{/* Version Badge (optional) */}
-					<div className='hidden md:flex items-center gap-3'>
+					{/* Version Badge */}
+					<div className='hidden md:flex items-center'>
 						<span className='bg-gray-100 text-gray-600 text-xs font-medium px-2 py-1 rounded-full'>
-							v2.0
-						</span>
-						<span className='text-sm text-gray-500'>
-							Free & Open Source
+							v{packageJson.version}
 						</span>
 					</div>
 				</div>

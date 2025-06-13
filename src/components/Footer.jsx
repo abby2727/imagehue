@@ -8,35 +8,10 @@ import { Heart, Coffee, Github, ExternalLink } from 'lucide-react';
 const Footer = () => {
 	return (
 		<footer className='mt-12 border-t border-gray-200 bg-gray-50'>
-			<div className='max-w-6xl mx-auto px-4 py-8'>
-				<div className='grid md:grid-cols-3 gap-8'>
-					{/* App Info */}
+			<div className='max-w-6xl mx-auto px-4 py-6'>
+				<div className='flex flex-col md:flex-row justify-between items-center gap-6'>
+					{/* Support Section */}
 					<div className='text-center md:text-left'>
-						<h3 className='font-bold text-gray-800 mb-2'>
-							PixelPick
-						</h3>
-						<p className='text-gray-600 text-sm'>
-							A powerful color picker tool for extracting colors
-							from images and creating custom color palettes.
-						</p>
-					</div>
-
-					{/* Features */}
-					<div className='text-center'>
-						<h4 className='font-semibold text-gray-800 mb-2'>
-							Features
-						</h4>
-						<ul className='text-gray-600 text-sm space-y-1'>
-							<li>🎨 Visual Color Picker</li>
-							<li>📸 Image Color Extraction</li>
-							<li>🎯 8 Color Format Support</li>
-							<li>🌈 Color Variations Generator</li>
-							<li>📋 One-Click Copy</li>
-						</ul>
-					</div>
-
-					{/* Support */}
-					<div className='text-center md:text-right'>
 						<h4 className='font-semibold text-gray-800 mb-3'>
 							Support the Project
 						</h4>
@@ -54,23 +29,17 @@ const Footer = () => {
 						</a>
 
 						<p className='text-gray-500 text-xs mt-2'>
-							Your support helps keep this project alive!
+							Free to use, but your support helps keep it going.
 						</p>
 					</div>
-				</div>
 
-				{/* Bottom Section */}
-				<div className='mt-8 pt-6 border-t border-gray-200 flex flex-col md:flex-row justify-between items-center'>
-					<p className='text-gray-500 text-sm mb-4 md:mb-0'>
-						Made with{' '}
-						<Heart className='w-4 h-4 text-red-500 inline' /> using
-						React.js
-					</p>
-
-					<div className='flex items-center gap-4 text-sm text-gray-500'>
-						<span>© 2024 PixelPick</span>
-						<span>•</span>
-						<span>Free & Open Source</span>
+					{/* Made with React */}
+					<div className='text-center md:text-right'>
+						<p className='text-gray-500 text-sm'>
+							Made with{' '}
+							<Heart className='w-4 h-4 text-red-500 inline' />{' '}
+							using React.js
+						</p>
 					</div>
 				</div>
 			</div>

@@ -46,11 +46,11 @@ const ModeSelector = ({ activeMode, onModeChange }) => {
 			</div>
 
 			{/* Mode Description */}
-			<div className='mt-3'>
+			{/* <div className='mt-3'>
 				<p className='text-gray-600 text-sm'>
 					{modes.find((mode) => mode.id === activeMode)?.description}
 				</p>
-			</div>
+			</div> */}
 		</div>
 	);
 };
