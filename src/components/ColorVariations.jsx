@@ -24,22 +24,22 @@ const ColorVariations = ({ selectedColor, onCopy }) => {
 	};
 
 	return (
-		<div className='pt-4 border-t border-white/10'>
+		<div className='pt-4 border-t border-gray-200'>
 			{/* Toggle Button */}
 			<button
 				onClick={() => setShowVariations(!showVariations)}
-				className='w-full flex items-center justify-center gap-2 p-3 bg-white/5 hover:bg-white/10 rounded-lg transition-colors group'
+				className='w-full flex items-center justify-center gap-2 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors group'
 			>
-				<Palette className='w-4 h-4 text-white/60 group-hover:text-white/80 transition-colors' />
-				<span className='text-white/80 font-medium'>
+				<Palette className='w-4 h-4 text-gray-500 group-hover:text-gray-700 transition-colors' />
+				<span className='text-gray-700 font-medium'>
 					{showVariations
 						? 'Hide Color Variations'
 						: 'Show Color Variations'}
 				</span>
 				{showVariations ? (
-					<ChevronUp className='w-4 h-4 text-white/60 group-hover:text-white/80 transition-colors' />
+					<ChevronUp className='w-4 h-4 text-gray-500 group-hover:text-gray-700 transition-colors' />
 				) : (
-					<ChevronDown className='w-4 h-4 text-white/60 group-hover:text-white/80 transition-colors' />
+					<ChevronDown className='w-4 h-4 text-gray-500 group-hover:text-gray-700 transition-colors' />
 				)}
 			</button>
 
@@ -47,14 +47,14 @@ const ColorVariations = ({ selectedColor, onCopy }) => {
 			{showVariations && (
 				<div className='mt-4 space-y-4'>
 					{/* Variations Bar */}
-					<div className='bg-white/5 p-4 rounded-lg'>
-						<h4 className='text-white/80 text-sm font-medium mb-3 text-center'>
+					<div className='bg-gray-50 p-4 rounded-lg'>
+						<h4 className='text-gray-700 text-sm font-medium mb-3 text-center'>
 							Tints & Shades (0% = White, 50% = Original, 100% =
 							Black)
 						</h4>
 
 						{/* Color Bar */}
-						<div className='flex rounded-lg overflow-hidden shadow-lg border border-white/10'>
+						<div className='flex rounded-lg overflow-hidden shadow-lg border border-gray-200'>
 							{variations.map((variation, index) => {
 								const isOriginal = variation.percentage === 50;
 								return (
@@ -88,7 +88,7 @@ const ColorVariations = ({ selectedColor, onCopy }) => {
 										{/* Original Color Indicator */}
 										{isOriginal && (
 											<div className='absolute -top-1 left-1/2 transform -translate-x-1/2'>
-												<div className='bg-white text-gray-800 text-xs font-bold px-2 py-1 rounded-full shadow-lg'>
+												<div className='bg-gray-800 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg'>
 													Original
 												</div>
 											</div>
@@ -102,7 +102,7 @@ const ColorVariations = ({ selectedColor, onCopy }) => {
 						<div className='flex justify-between mt-2 px-1'>
 							{variations.map((variation, index) => (
 								<div key={index} className='flex-1 text-center'>
-									<span className='text-white/50 text-xs font-medium'>
+									<span className='text-gray-500 text-xs font-medium'>
 										{variation.percentage}%
 									</span>
 								</div>
@@ -122,8 +122,8 @@ const ColorVariations = ({ selectedColor, onCopy }) => {
 									}
 									className={`group p-3 rounded-lg transition-all duration-200 relative ${
 										isOriginal
-											? 'bg-white/15 border-2 border-white/40 ring-1 ring-white/20'
-											: 'bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20'
+											? 'bg-gray-100 border-2 border-gray-400 ring-1 ring-gray-300'
+											: 'bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-gray-300'
 									}`}
 									title={`Copy ${variation.hex}${
 										isOriginal ? ' (Original)' : ''
@@ -140,8 +140,8 @@ const ColorVariations = ({ selectedColor, onCopy }) => {
 									<div
 										className={`w-full h-8 rounded mb-2 transition-transform group-hover:scale-105 ${
 											isOriginal
-												? 'border-2 border-white/40 ring-1 ring-white/20'
-												: 'border border-white/20'
+												? 'border-2 border-gray-400 ring-1 ring-gray-300'
+												: 'border border-gray-300'
 										}`}
 										style={{
 											backgroundColor: variation.hex
@@ -153,8 +153,8 @@ const ColorVariations = ({ selectedColor, onCopy }) => {
 										<div
 											className={`text-xs font-medium ${
 												isOriginal
-													? 'text-white'
-													: 'text-white/70'
+													? 'text-gray-800'
+													: 'text-gray-600'
 											}`}
 										>
 											{variation.percentage}%{' '}
@@ -163,8 +163,8 @@ const ColorVariations = ({ selectedColor, onCopy }) => {
 										<div
 											className={`text-xs font-mono ${
 												isOriginal
-													? 'text-white font-bold'
-													: 'text-white'
+													? 'text-gray-800 font-bold'
+													: 'text-gray-700'
 											}`}
 										>
 											{variation.hex}
@@ -173,7 +173,7 @@ const ColorVariations = ({ selectedColor, onCopy }) => {
 
 									{/* Copy Icon (appears on hover) */}
 									<div className='absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity'>
-										<Copy className='w-3 h-3 text-white/60' />
+										<Copy className='w-3 h-3 text-gray-500' />
 									</div>
 								</button>
 							);
@@ -181,7 +181,7 @@ const ColorVariations = ({ selectedColor, onCopy }) => {
 					</div>
 
 					{/* Info Text */}
-					<div className='text-center text-white/50 text-xs'>
+					<div className='text-center text-gray-500 text-xs'>
 						💡 Click any color to copy its hex value to clipboard
 					</div>
 				</div>

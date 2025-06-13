@@ -9,7 +9,7 @@ const ImageUploadArea = () => {
 	return (
 		<div className='absolute inset-0 flex items-center justify-center'>
 			<div className='upload-area w-full h-full flex items-center justify-center'>
-				<div className='text-white/60'>
+				<div className='text-gray-500'>
 					<Upload className='w-12 h-12 mx-auto mb-4' />
 					<p className='text-lg font-medium'>
 						Click to upload an image

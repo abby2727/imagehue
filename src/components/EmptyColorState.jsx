@@ -7,7 +7,7 @@ import { Palette } from 'lucide-react';
  */
 const EmptyColorState = () => {
 	return (
-		<div className='text-center text-white/60 py-12'>
+		<div className='text-center text-gray-500 py-12'>
 			<Palette className='w-12 h-12 mx-auto mb-4 opacity-50' />
 			<p className='text-lg'>No color selected</p>
 			<p className='text-sm mt-2'>Click on the image to pick a color</p>

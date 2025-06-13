@@ -17,29 +17,29 @@ body {
 
 #root {
 	min-height: 100vh;
-	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
 }
 
 /* Custom component styles */
 @layer components {
 	.glass-card {
-		@apply bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl shadow-xl;
+		@apply bg-white/80 backdrop-blur-lg border border-gray-200/50 rounded-xl shadow-xl;
 	}
 
 	.color-preview {
-		@apply w-16 h-16 rounded-lg border-2 border-white/30 shadow-lg transition-all duration-200;
+		@apply w-16 h-16 rounded-lg border-2 border-gray-300 shadow-lg transition-all duration-200;
 	}
 
 	.copy-button {
-		@apply flex items-center gap-2 px-3 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-all duration-200 text-sm font-medium text-white cursor-pointer;
+		@apply flex items-center gap-2 px-3 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-all duration-200 text-sm font-medium text-gray-700 cursor-pointer;
 	}
 
 	.upload-area {
-		@apply border-2 border-dashed border-white/30 rounded-xl p-8 text-center transition-all duration-200 cursor-pointer hover:border-white/50 hover:bg-white/5;
+		@apply border-2 border-dashed border-gray-300 rounded-xl p-8 text-center transition-all duration-200 cursor-pointer hover:border-gray-400 hover:bg-gray-50;
 	}
 
 	.canvas-container {
-		@apply relative overflow-hidden rounded-lg border border-white/20 shadow-lg;
+		@apply relative overflow-hidden rounded-lg border border-gray-200 shadow-lg;
 	}
 
 	.magnifying-glass {
@@ -57,15 +57,15 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-	background: rgba(255, 255, 255, 0.1);
+	background: rgba(0, 0, 0, 0.05);
 	border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb {
-	background: rgba(255, 255, 255, 0.3);
+	background: rgba(0, 0, 0, 0.2);
 	border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-	background: rgba(255, 255, 255, 0.5);
+	background: rgba(0, 0, 0, 0.3);
 }

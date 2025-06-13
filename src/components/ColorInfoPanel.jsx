@@ -11,7 +11,7 @@ const ColorInfoPanel = ({ selectedColor, onCopy }) => {
 	return (
 		<div className='lg:col-span-1'>
 			<div className='glass-card p-6'>
-				<h2 className='text-xl font-semibold text-white mb-6 flex items-center gap-2'>
+				<h2 className='text-xl font-semibold text-gray-800 mb-6 flex items-center gap-2'>
 					<Palette className='w-5 h-5' />
 					Color Information
 				</h2>

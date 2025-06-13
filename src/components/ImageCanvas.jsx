@@ -35,12 +35,12 @@ const ImageCanvas = ({
 
 				{/* Magnify Hint */}
 				{imageLoaded && (
-					<div className='mb-1 p-2 bg-amber-500/15 border border-amber-500/30 rounded-lg'>
+					<div className='mb-1 p-2 bg-amber-100/80 border border-amber-300 rounded-lg'>
 						<div className='flex items-center justify-center gap-2'>
-							<span className='text-amber-300 text-lg'>🔍</span>
-							<p className='text-amber-100 text-sm font-medium'>
+							<span className='text-amber-600 text-lg'>🔍</span>
+							<p className='text-amber-800 text-sm font-medium'>
 								Hold{' '}
-								<kbd className='px-1.5 py-0.5 bg-amber-500/40 rounded text-xs font-bold'>
+								<kbd className='px-1.5 py-0.5 bg-amber-200 text-amber-900 rounded text-xs font-bold'>
 									Ctrl
 								</kbd>{' '}
 								while hovering to magnify
@@ -53,8 +53,8 @@ const ImageCanvas = ({
 				<div className='canvas-container'>
 					{/* Loading Overlay */}
 					{isLoading && (
-						<div className='absolute inset-0 flex items-center justify-center bg-black/20 z-10'>
-							<div className='text-white text-lg'>
+						<div className='absolute inset-0 flex items-center justify-center bg-white/80 z-10'>
+							<div className='text-gray-800 text-lg'>
 								Loading image...
 							</div>
 						</div>
@@ -67,7 +67,7 @@ const ImageCanvas = ({
 						onMouseMove={onCanvasMouseMove}
 						onMouseEnter={onCanvasMouseEnter}
 						onMouseLeave={onCanvasMouseLeave}
-						className='w-full h-auto cursor-crosshair bg-white/5'
+						className='w-full h-auto cursor-crosshair bg-gray-100'
 						style={{ minHeight: '300px' }}
 					/>
 

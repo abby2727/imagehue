@@ -32,7 +32,7 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 					className='color-preview mx-auto mb-4'
 					style={{ backgroundColor: selectedColor.hex }}
 				/>
-				<p className='text-white/80 text-sm'>
+				<p className='text-gray-600 text-sm'>
 					Position: ({selectedColor.position.x},{' '}
 					{selectedColor.position.y})
 				</p>
@@ -42,7 +42,7 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 			<div className='space-y-4'>
 				{/* Hex Value */}
 				<div>
-					<label className='block text-white/70 text-sm mb-2'>
+					<label className='block text-gray-600 text-sm mb-2'>
 						Hex Value
 					</label>
 					<div className='flex items-center gap-2'>
@@ -50,21 +50,21 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 							type='text'
 							value={selectedColor.hex}
 							readOnly
-							className='flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white font-mono text-sm'
+							className='flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-800 font-mono text-sm'
 						/>
 						<button
 							onClick={() => onCopy(selectedColor.hex)}
-							className='p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors'
+							className='p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors'
 							title='Copy Hex value'
 						>
-							<Copy className='w-4 h-4 text-white' />
+							<Copy className='w-4 h-4 text-gray-600' />
 						</button>
 					</div>
 				</div>
 
 				{/* RGB Value */}
 				<div>
-					<label className='block text-white/70 text-sm mb-2'>
+					<label className='block text-gray-600 text-sm mb-2'>
 						RGB Value
 					</label>
 					<div className='flex items-center gap-2'>
@@ -72,14 +72,14 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 							type='text'
 							value={selectedColor.rgb}
 							readOnly
-							className='flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white font-mono text-sm'
+							className='flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-800 font-mono text-sm'
 						/>
 						<button
 							onClick={() => onCopy(selectedColor.rgb)}
-							className='p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors'
+							className='p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors'
 							title='Copy RGB value'
 						>
-							<Copy className='w-4 h-4 text-white' />
+							<Copy className='w-4 h-4 text-gray-600' />
 						</button>
 					</div>
 				</div>
@@ -131,30 +131,30 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 				</div> */}
 
 				{/* Show More Toggle */}
-				<div className='pt-4 border-t border-white/10'>
+				<div className='pt-4 border-t border-gray-200'>
 					<button
 						onClick={() => setShowMoreFormats(!showMoreFormats)}
-						className='w-full flex items-center justify-center gap-2 p-3 bg-white/5 hover:bg-white/10 rounded-lg transition-colors group'
+						className='w-full flex items-center justify-center gap-2 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors group'
 					>
-						<span className='text-white/80 font-medium'>
+						<span className='text-gray-700 font-medium'>
 							{showMoreFormats
 								? 'Show Less'
 								: 'Show More Color Formats'}
 						</span>
 						{showMoreFormats ? (
-							<ChevronUp className='w-4 h-4 text-white/60 group-hover:text-white/80 transition-colors' />
+							<ChevronUp className='w-4 h-4 text-gray-500 group-hover:text-gray-700 transition-colors' />
 						) : (
-							<ChevronDown className='w-4 h-4 text-white/60 group-hover:text-white/80 transition-colors' />
+							<ChevronDown className='w-4 h-4 text-gray-500 group-hover:text-gray-700 transition-colors' />
 						)}
 					</button>
 				</div>
 
 				{/* Extended Color Formats */}
 				{showMoreFormats && allFormats && (
-					<div className='space-y-3 pt-4 border-t border-white/10'>
+					<div className='space-y-3 pt-4 border-t border-gray-200'>
 						{/* HSL */}
 						<div>
-							<label className='block text-white/70 text-sm mb-2'>
+							<label className='block text-gray-600 text-sm mb-2'>
 								HSL
 							</label>
 							<div className='flex items-center gap-2'>
@@ -162,21 +162,21 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 									type='text'
 									value={allFormats.hsl}
 									readOnly
-									className='flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white font-mono text-sm'
+									className='flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-800 font-mono text-sm'
 								/>
 								<button
 									onClick={() => onCopy(allFormats.hsl)}
-									className='p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors'
+									className='p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors'
 									title='Copy HSL value'
 								>
-									<Copy className='w-4 h-4 text-white' />
+									<Copy className='w-4 h-4 text-gray-600' />
 								</button>
 							</div>
 						</div>
 
 						{/* XYZ */}
 						<div>
-							<label className='block text-white/70 text-sm mb-2'>
+							<label className='block text-gray-600 text-sm mb-2'>
 								XYZ
 							</label>
 							<div className='flex items-center gap-2'>
@@ -184,21 +184,21 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 									type='text'
 									value={allFormats.xyz}
 									readOnly
-									className='flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white font-mono text-sm'
+									className='flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-800 font-mono text-sm'
 								/>
 								<button
 									onClick={() => onCopy(allFormats.xyz)}
-									className='p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors'
+									className='p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors'
 									title='Copy XYZ value'
 								>
-									<Copy className='w-4 h-4 text-white' />
+									<Copy className='w-4 h-4 text-gray-600' />
 								</button>
 							</div>
 						</div>
 
 						{/* CMYK */}
 						<div>
-							<label className='block text-white/70 text-sm mb-2'>
+							<label className='block text-gray-600 text-sm mb-2'>
 								CMYK
 							</label>
 							<div className='flex items-center gap-2'>
@@ -206,21 +206,21 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 									type='text'
 									value={allFormats.cmyk}
 									readOnly
-									className='flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white font-mono text-sm'
+									className='flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-800 font-mono text-sm'
 								/>
 								<button
 									onClick={() => onCopy(allFormats.cmyk)}
-									className='p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors'
+									className='p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors'
 									title='Copy CMYK value'
 								>
-									<Copy className='w-4 h-4 text-white' />
+									<Copy className='w-4 h-4 text-gray-600' />
 								</button>
 							</div>
 						</div>
 
 						{/* LAB */}
 						<div>
-							<label className='block text-white/70 text-sm mb-2'>
+							<label className='block text-gray-600 text-sm mb-2'>
 								LAB
 							</label>
 							<div className='flex items-center gap-2'>
@@ -228,21 +228,21 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 									type='text'
 									value={allFormats.lab}
 									readOnly
-									className='flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white font-mono text-sm'
+									className='flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-800 font-mono text-sm'
 								/>
 								<button
 									onClick={() => onCopy(allFormats.lab)}
-									className='p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors'
+									className='p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors'
 									title='Copy LAB value'
 								>
-									<Copy className='w-4 h-4 text-white' />
+									<Copy className='w-4 h-4 text-gray-600' />
 								</button>
 							</div>
 						</div>
 
 						{/* LUV */}
 						<div>
-							<label className='block text-white/70 text-sm mb-2'>
+							<label className='block text-gray-600 text-sm mb-2'>
 								LUV
 							</label>
 							<div className='flex items-center gap-2'>
@@ -250,21 +250,21 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 									type='text'
 									value={allFormats.luv}
 									readOnly
-									className='flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white font-mono text-sm'
+									className='flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-800 font-mono text-sm'
 								/>
 								<button
 									onClick={() => onCopy(allFormats.luv)}
-									className='p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors'
+									className='p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors'
 									title='Copy LUV value'
 								>
-									<Copy className='w-4 h-4 text-white' />
+									<Copy className='w-4 h-4 text-gray-600' />
 								</button>
 							</div>
 						</div>
 
 						{/* HWB */}
 						<div>
-							<label className='block text-white/70 text-sm mb-2'>
+							<label className='block text-gray-600 text-sm mb-2'>
 								HWB
 							</label>
 							<div className='flex items-center gap-2'>
@@ -272,14 +272,14 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 									type='text'
 									value={allFormats.hwb}
 									readOnly
-									className='flex-1 bg-white/10 border border-white/20 rounded-lg px-3 py-2 text-white font-mono text-sm'
+									className='flex-1 bg-gray-50 border border-gray-200 rounded-lg px-3 py-2 text-gray-800 font-mono text-sm'
 								/>
 								<button
 									onClick={() => onCopy(allFormats.hwb)}
-									className='p-2 bg-white/20 hover:bg-white/30 rounded-lg transition-colors'
+									className='p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors'
 									title='Copy HWB value'
 								>
-									<Copy className='w-4 h-4 text-white' />
+									<Copy className='w-4 h-4 text-gray-600' />
 								</button>
 							</div>
 						</div>
