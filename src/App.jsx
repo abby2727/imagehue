@@ -221,6 +221,74 @@ const App = () => {
 	);
 
 	/**
+	 * Handle direct clipboard paste when button is clicked
+	 * Uses the modern Clipboard API to read image data directly
+	 */
+	const handleClipboardPaste = useCallback(async () => {
+		try {
+			// Check if Clipboard API is available
+			if (!navigator.clipboard || !navigator.clipboard.read) {
+				showFeedback(
+					'Clipboard API not supported. Please use Ctrl+V (Cmd+V on Mac) instead.',
+					3000
+				);
+				return;
+			}
+
+			// Request clipboard permission and read data
+			const clipboardItems = await navigator.clipboard.read();
+
+			let imageFound = false;
+
+			for (const clipboardItem of clipboardItems) {
+				// Look for image types in clipboard
+				for (const type of clipboardItem.types) {
+					if (type.startsWith('image/')) {
+						const blob = await clipboardItem.getType(type);
+						const file = new File(
+							[blob],
+							'pasted-image.' + type.split('/')[1],
+							{ type }
+						);
+						loadImage(file);
+						showFeedback('Image pasted from clipboard!');
+						imageFound = true;
+						break;
+					}
+				}
+				if (imageFound) break;
+			}
+
+			if (!imageFound) {
+				showFeedback(
+					'No image found in clipboard. Copy an image first, then try again.',
+					3000
+				);
+			}
+		} catch (error) {
+			console.error('Clipboard paste error:', error);
+
+			// Handle different types of errors with appropriate messages
+			if (error.name === 'NotAllowedError') {
+				showFeedback(
+					'Clipboard access denied. Please use Ctrl+V (Cmd+V on Mac) instead.',
+					3000
+				);
+			} else if (error.name === 'NotFoundError') {
+				showFeedback(
+					'No image found in clipboard. Copy an image first, then try again.',
+					3000
+				);
+			} else {
+				showFeedback(
+					'Failed to paste from clipboard. Please use Ctrl+V (Cmd+V on Mac) instead.',
+					3000
+				);
+			}
+		}
+	}, [loadImage, showFeedback]);
+
+	/**
 	 * Handle canvas click to pick color from image
 	 * @param {Event} event - Mouse click event on canvas
 	 */
@@ -337,12 +405,9 @@ const App = () => {
 								</button>
 
 								<button
-									onClick={() =>
-										showFeedback(
-											'Paste an image using Ctrl+V (Cmd+V on Mac)'
-										)
-									}
+									onClick={handleClipboardPaste}
 									className='copy-button'
+									disabled={isLoading}
 								>
 									<Clipboard className='w-4 h-4' />
 									Paste from Clipboard
@@ -383,8 +448,8 @@ const App = () => {
 													Click to upload an image
 												</p>
 												<p className='text-sm'>
-													or paste from clipboard
-													(Ctrl+V)
+													or use the paste button
+													above
 												</p>
 											</div>
 										</div>
@@ -399,12 +464,12 @@ const App = () => {
 								</p>
 								<ul className='list-disc list-inside mt-2 space-y-1'>
 									<li>
-										Click "Upload Image" or drag & drop an
-										image file
+										Click "Upload Image" to select a file
+										from your device
 									</li>
 									<li>
-										Use Ctrl+V (Cmd+V on Mac) to paste from
-										clipboard
+										Click "Paste from Clipboard" or use
+										Ctrl+V (Cmd+V on Mac) to paste images
 									</li>
 									<li>
 										Click anywhere on the image to pick a
