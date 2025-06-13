@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Base styles */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+html,
+body {
+	height: 100%;
+	font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+#root {
+	min-height: 100vh;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+/* Custom component styles */
+@layer components {
+	.glass-card {
+		@apply bg-white/10 backdrop-blur-lg border border-white/20 rounded-xl shadow-xl;
+	}
+
+	.color-preview {
+		@apply w-16 h-16 rounded-lg border-2 border-white/30 shadow-lg transition-all duration-200;
+	}
+
+	.copy-button {
+		@apply flex items-center gap-2 px-3 py-2 bg-white/20 hover:bg-white/30 rounded-lg transition-all duration-200 text-sm font-medium text-white cursor-pointer;
+	}
+
+	.upload-area {
+		@apply border-2 border-dashed border-white/30 rounded-xl p-8 text-center transition-all duration-200 cursor-pointer hover:border-white/50 hover:bg-white/5;
+	}
+
+	.canvas-container {
+		@apply relative overflow-hidden rounded-lg border border-white/20 shadow-lg;
+	}
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+	width: 8px;
+}
+
+::-webkit-scrollbar-track {
+	background: rgba(255, 255, 255, 0.1);
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+	background: rgba(255, 255, 255, 0.3);
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+	background: rgba(255, 255, 255, 0.5);
+}
