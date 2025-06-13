@@ -32,10 +32,14 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 					className='color-preview mx-auto mb-4'
 					style={{ backgroundColor: selectedColor.hex }}
 				/>
-				<p className='text-gray-600 text-sm'>
-					Position: ({selectedColor.position.x},{' '}
-					{selectedColor.position.y})
-				</p>
+				{selectedColor.position &&
+					selectedColor.position.x >= 0 &&
+					selectedColor.position.y >= 0 && (
+						<p className='text-gray-600 text-sm'>
+							Position: ({selectedColor.position.x},{' '}
+							{selectedColor.position.y})
+						</p>
+					)}
 			</div>
 
 			{/* Color Values */}

@@ -1,18 +1,12 @@
-import { useState, useRef, useCallback, useEffect } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
+import { useAppContext } from '../contexts/AppContext';
 
 /**
- * Custom hook for handling image loading, canvas drawing, and color picking
+ * Custom hook that wraps useImageHandler with global context
+ * This ensures state persists across route changes
  */
-const useImageHandler = (showFeedback) => {
-	const [image, setImage] = useState(null);
-	const [selectedColor, setSelectedColor] = useState(null);
-	const [isLoading, setIsLoading] = useState(false);
-	const [imageLoaded, setImageLoaded] = useState(false);
-	const [showMagnifier, setShowMagnifier] = useState(false);
-	const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-	const [isCtrlPressed, setIsCtrlPressed] = useState(false);
-	const [isHoveringCanvas, setIsHoveringCanvas] = useState(false);
-
+const useImageHandlerWithContext = (showFeedback) => {
+	const { imagePickerState, updateImagePickerState } = useAppContext();
 	const canvasRef = useRef(null);
 	const fileInputRef = useRef(null);
 
@@ -33,59 +27,63 @@ const useImageHandler = (showFeedback) => {
 	/**
 	 * Draw image on canvas with proper scaling and centering
 	 */
-	const drawImageOnCanvas = useCallback((img) => {
-		const canvas = canvasRef.current;
-		const ctx = canvas.getContext('2d');
+	const drawImageOnCanvas = useCallback(
+		(img) => {
+			const canvas = canvasRef.current;
+			const ctx = canvas.getContext('2d');
 
-		if (!canvas || !ctx || !img) return;
+			if (!canvas || !ctx || !img) return;
 
-		const maxWidth = 800;
-		const maxHeight = 600;
+			const maxWidth = 800;
+			const maxHeight = 600;
 
-		let { width, height } = img;
+			let { width, height } = img;
 
-		if (width > maxWidth || height > maxHeight) {
-			const aspectRatio = width / height;
-			if (width > height) {
-				width = maxWidth;
-				height = maxWidth / aspectRatio;
-			} else {
-				height = maxHeight;
-				width = maxHeight * aspectRatio;
+			if (width > maxWidth || height > maxHeight) {
+				const aspectRatio = width / height;
+				if (width > height) {
+					width = maxWidth;
+					height = maxWidth / aspectRatio;
+				} else {
+					height = maxHeight;
+					width = maxHeight * aspectRatio;
+				}
 			}
-		}
 
-		canvas.width = width;
-		canvas.height = height;
-		canvas.style.maxWidth = '100%';
-		canvas.style.height = 'auto';
+			canvas.width = width;
+			canvas.height = height;
+			canvas.style.maxWidth = '100%';
+			canvas.style.height = 'auto';
 
-		ctx.clearRect(0, 0, width, height);
-		ctx.drawImage(img, 0, 0, width, height);
+			ctx.clearRect(0, 0, width, height);
+			ctx.drawImage(img, 0, 0, width, height);
 
-		setImageLoaded(true);
-	}, []);
+			updateImagePickerState({ imageLoaded: true });
+		},
+		[updateImagePickerState]
+	);
 
 	/**
 	 * Load image from various sources
 	 */
 	const loadImage = useCallback(
 		(source) => {
-			setIsLoading(true);
-			setImageLoaded(false);
-			setSelectedColor(null);
+			updateImagePickerState({
+				isLoading: true,
+				imageLoaded: false,
+				selectedColor: null
+			});
 
 			const img = new Image();
 
 			img.onload = () => {
-				setImage(img);
+				updateImagePickerState({ image: img, isLoading: false });
 				drawImageOnCanvas(img);
-				setIsLoading(false);
 				showFeedback('Image loaded successfully!');
 			};
 
 			img.onerror = () => {
-				setIsLoading(false);
+				updateImagePickerState({ isLoading: false });
 				showFeedback('Failed to load image. Please try another image.');
 			};
 
@@ -100,7 +98,7 @@ const useImageHandler = (showFeedback) => {
 				reader.readAsDataURL(source);
 			}
 		},
-		[drawImageOnCanvas, showFeedback]
+		[drawImageOnCanvas, showFeedback, updateImagePickerState]
 	);
 
 	/**
@@ -209,36 +207,44 @@ const useImageHandler = (showFeedback) => {
 	 */
 	const handleCanvasMouseMove = useCallback(
 		(event) => {
-			if (!imageLoaded) return;
+			if (!imagePickerState.imageLoaded) return;
 
-			setMousePosition({
-				x: event.clientX,
-				y: event.clientY
+			updateImagePickerState({
+				mousePosition: {
+					x: event.clientX,
+					y: event.clientY
+				}
 			});
 		},
-		[imageLoaded]
+		[imagePickerState.imageLoaded, updateImagePickerState]
 	);
 
 	/**
 	 * Handle mouse enter canvas
 	 */
 	const handleCanvasMouseEnter = useCallback(() => {
-		if (imageLoaded) {
-			setIsHoveringCanvas(true);
+		if (imagePickerState.imageLoaded) {
+			updateImagePickerState({ isHoveringCanvas: true });
 			// Only show magnifier if Ctrl is also pressed
-			if (isCtrlPressed) {
-				setShowMagnifier(true);
+			if (imagePickerState.isCtrlPressed) {
+				updateImagePickerState({ showMagnifier: true });
 			}
 		}
-	}, [imageLoaded, isCtrlPressed]);
+	}, [
+		imagePickerState.imageLoaded,
+		imagePickerState.isCtrlPressed,
+		updateImagePickerState
+	]);
 
 	/**
 	 * Handle mouse leave canvas
 	 */
 	const handleCanvasMouseLeave = useCallback(() => {
-		setIsHoveringCanvas(false);
-		setShowMagnifier(false);
-	}, []);
+		updateImagePickerState({
+			isHoveringCanvas: false,
+			showMagnifier: false
+		});
+	}, [updateImagePickerState]);
 
 	/**
 	 * Handle keydown events for Ctrl key
@@ -246,25 +252,29 @@ const useImageHandler = (showFeedback) => {
 	const handleKeyDown = useCallback(
 		(event) => {
 			if (event.key === 'Control') {
-				setIsCtrlPressed(true);
+				updateImagePickerState({ isCtrlPressed: true });
 				// Show magnifier if also hovering over canvas
-				if (isHoveringCanvas && imageLoaded) {
-					setShowMagnifier(true);
+				if (
+					imagePickerState.isHoveringCanvas &&
+					imagePickerState.imageLoaded
+				) {
+					updateImagePickerState({ showMagnifier: true });
 				}
 			}
 		},
-		[isHoveringCanvas, imageLoaded]
+		[
+			imagePickerState.isHoveringCanvas,
+			imagePickerState.imageLoaded,
+			updateImagePickerState
+		]
 	);
 
 	/**
 	 * Handle keyup events for Ctrl key
 	 */
-	const handleKeyUp = useCallback((event) => {
-		if (event.key === 'Control') {
-			setIsCtrlPressed(false);
-			setShowMagnifier(false);
-		}
-	}, []);
+	const handleKeyUp = useCallback(() => {
+		updateImagePickerState({ isCtrlPressed: false, showMagnifier: false });
+	}, [updateImagePickerState]);
 
 	/**
 	 * Handle canvas click to pick color from image
@@ -274,7 +284,7 @@ const useImageHandler = (showFeedback) => {
 			const canvas = canvasRef.current;
 			const ctx = canvas.getContext('2d');
 
-			if (!canvas || !ctx || !imageLoaded) return;
+			if (!canvas || !ctx || !imagePickerState.imageLoaded) return;
 
 			const rect = canvas.getBoundingClientRect();
 			const scaleX = canvas.width / rect.width;
@@ -291,15 +301,16 @@ const useImageHandler = (showFeedback) => {
 					const hex = rgbToHex(r, g, b);
 					const rgb = `rgb(${r}, ${g}, ${b})`;
 
-					setSelectedColor({
+					const selectedColor = {
 						hex,
 						rgb,
 						r,
 						g,
 						b,
 						position: { x, y }
-					});
+					};
 
+					updateImagePickerState({ selectedColor });
 					showFeedback(`Color picked: ${hex}`);
 				}
 			} catch (error) {
@@ -307,20 +318,27 @@ const useImageHandler = (showFeedback) => {
 				showFeedback('Failed to pick color. Please try again.');
 			}
 		},
-		[imageLoaded, rgbToHex, showFeedback]
+		[
+			imagePickerState.imageLoaded,
+			rgbToHex,
+			showFeedback,
+			updateImagePickerState
+		]
 	);
 
 	/**
 	 * Reset application to initial state
 	 */
 	const resetApp = useCallback(() => {
-		setImage(null);
-		setSelectedColor(null);
-		setImageLoaded(false);
-		setShowMagnifier(false);
-		setMousePosition({ x: 0, y: 0 });
-		setIsCtrlPressed(false);
-		setIsHoveringCanvas(false);
+		updateImagePickerState({
+			image: null,
+			selectedColor: null,
+			imageLoaded: false,
+			showMagnifier: false,
+			mousePosition: { x: 0, y: 0 },
+			isCtrlPressed: false,
+			isHoveringCanvas: false
+		});
 
 		const canvas = canvasRef.current;
 		if (canvas) {
@@ -329,7 +347,7 @@ const useImageHandler = (showFeedback) => {
 		}
 
 		showFeedback('Application reset');
-	}, [showFeedback]);
+	}, [showFeedback, updateImagePickerState]);
 
 	/**
 	 * Trigger file input click
@@ -338,22 +356,24 @@ const useImageHandler = (showFeedback) => {
 		fileInputRef.current?.click();
 	}, []);
 
-	// Load default image on mount
+	// Load default image on mount if no image is loaded
 	useEffect(() => {
-		loadImage(defaultImageUrl);
-	}, [loadImage, defaultImageUrl]);
+		if (!imagePickerState.image && !imagePickerState.isLoading) {
+			loadImage(defaultImageUrl);
+		}
+	}, [loadImage, imagePickerState.image, imagePickerState.isLoading]);
 
 	// Redraw image when canvas becomes available (after component remount)
 	useEffect(() => {
-		if (image && canvasRef.current) {
+		if (imagePickerState.image && canvasRef.current) {
 			// Add a small delay to ensure canvas is ready
 			const timer = setTimeout(() => {
-				drawImageOnCanvas(image);
+				drawImageOnCanvas(imagePickerState.image);
 			}, 10);
 
 			return () => clearTimeout(timer);
 		}
-	}, [image, drawImageOnCanvas, canvasRef.current]);
+	}, [imagePickerState.image, drawImageOnCanvas]);
 
 	// Add global paste event listener
 	useEffect(() => {
@@ -376,13 +396,12 @@ const useImageHandler = (showFeedback) => {
 	}, [handleKeyDown, handleKeyUp]);
 
 	return {
-		// State
-		image,
-		selectedColor,
-		isLoading,
-		imageLoaded,
-		showMagnifier,
-		mousePosition,
+		// State from context
+		selectedColor: imagePickerState.selectedColor,
+		isLoading: imagePickerState.isLoading,
+		imageLoaded: imagePickerState.imageLoaded,
+		showMagnifier: imagePickerState.showMagnifier,
+		mousePosition: imagePickerState.mousePosition,
 		// Refs
 		canvasRef,
 		fileInputRef,
@@ -398,4 +417,4 @@ const useImageHandler = (showFeedback) => {
 	};
 };
 
-export default useImageHandler;
+export default useImageHandlerWithContext;
