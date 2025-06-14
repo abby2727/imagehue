@@ -39,6 +39,13 @@ const Footer = () => {
 							Made with{' '}
 							<Heart className='w-4 h-4 text-red-500 inline transition-all duration-300 hover:text-red-600 hover:fill-red-600 hover:scale-110 cursor-pointer' />
 						</p>
+
+						{/* SEO Description */}
+						<p className='text-gray-400 text-xs mt-2 max-w-md'>
+							Extract exact color values from images • Hex, RGB,
+							HSL codes • Free online tool for designers &
+							developers
+						</p>
 					</div>
 				</div>
 			</div>

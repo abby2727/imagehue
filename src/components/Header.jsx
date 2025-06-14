@@ -32,14 +32,6 @@ const Header = () => {
 						</span>
 					</div>
 				</div>
-
-				{/* SEO-friendly subtitle */}
-				<div className='mt-2 text-center sm:text-left'>
-					<p className='text-xs text-gray-500 hidden sm:block'>
-						Extract exact color values from images • Hex, RGB, HSL
-						codes • Free online tool for designers & developers
-					</p>
-				</div>
 			</div>
 		</header>
 	);
