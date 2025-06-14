@@ -1,0 +1,33 @@
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://imagehue.com/sitemap.xml
+
+# Additional sitemaps if needed
+# Sitemap: https://imagehue.com/sitemap-images.xml
+
+# Crawl delay (optional, helps with server load)
+Crawl-delay: 1
+
+# Disallow any private or development paths
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.json$
+Disallow: /src/
+Disallow: /node_modules/
+Disallow: /dist/
+Disallow: /.git/
+
+# Allow important assets
+Allow: /assets/
+Allow: /images/
+Allow: /icons/
+Allow: /*.css$
+Allow: /*.js$
+Allow: /*.png$
+Allow: /*.jpg$
+Allow: /*.jpeg$
+Allow: /*.gif$
+Allow: /*.svg$
+Allow: /*.webp$ 
