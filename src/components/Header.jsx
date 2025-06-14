@@ -1,5 +1,5 @@
 import React from 'react';
-import { Palette } from 'lucide-react';
+import { Palette, Coffee, ExternalLink } from 'lucide-react';
 import packageJson from '../../package.json';
 
 /**
@@ -25,11 +25,21 @@ const Header = () => {
 						</div>
 					</div>
 
-					{/* Version Badge */}
-					<div className='hidden md:flex items-center'>
+					{/* Version Badge and Buy Me a Coffee */}
+					<div className='hidden md:flex flex-col items-end gap-2'>
 						<span className='bg-gray-100 text-gray-600 text-xs font-medium px-2 py-1 rounded-full'>
 							v{packageJson.version}
 						</span>
+						<a
+							href='https://coff.ee/abby2727'
+							target='_blank'
+							rel='noopener noreferrer'
+							className='inline-flex items-center gap-1 bg-yellow-400 hover:bg-yellow-500 text-yellow-900 text-xs font-medium px-2 py-1 rounded-full transition-colors duration-200 shadow-sm hover:shadow-md'
+						>
+							<Coffee className='w-3 h-3' />
+							Buy Me a Coffee
+							<ExternalLink className='w-2 h-2' />
+						</a>
 					</div>
 				</div>
 			</div>
