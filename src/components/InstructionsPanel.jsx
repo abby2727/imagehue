@@ -5,6 +5,12 @@ import React from 'react';
  * Displays usage instructions for the image color picker application
  */
 const InstructionsPanel = () => {
+	// Check if user is on mobile device
+	const isMobile =
+		/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+			navigator.userAgent
+		) || window.innerWidth < 768;
+
 	return (
 		<div className='mt-4 text-gray-800 text-sm'>
 			<p className='font-semibold mb-2'>
@@ -18,24 +24,29 @@ const InstructionsPanel = () => {
 				</li>
 				<li>
 					<strong>Paste from Clipboard:</strong> Click "Paste from
-					Clipboard" or use Ctrl+V (Cmd+V on Mac) to paste images
-					directly from your clipboard
+					Clipboard" or use{' '}
+					{isMobile
+						? "your device's paste function"
+						: 'Ctrl+V (Cmd+V on Mac)'}{' '}
+					to paste images directly from your clipboard
 				</li>
 				<li>
-					<strong>Pick Colors:</strong> Click anywhere on the image to
-					extract the exact pixel color and get Hex, RGB values
-					instantly
+					<strong>Pick Colors:</strong> {isMobile ? 'Tap' : 'Click'}{' '}
+					anywhere on the image to extract the exact pixel color and
+					get Hex, RGB values instantly
 				</li>
 				<li>
 					<strong>Color Information:</strong> View detailed color
 					information including Hex codes, RGB values, and color
-					variations in the right panel
+					variations in the {isMobile ? 'panel below' : 'right panel'}
 				</li>
-				<li>
-					<strong>Magnify Tool:</strong> Hold Ctrl while hovering over
-					the image to use the magnifying glass for precise pixel
-					color selection
-				</li>
+				{!isMobile && (
+					<li>
+						<strong>Magnify Tool:</strong> Hold Ctrl while hovering
+						over the image to use the magnifying glass for precise
+						pixel color selection
+					</li>
+				)}
 				<li>
 					<strong>Copy Colors:</strong> Use the copy buttons to
 					instantly copy color codes to your clipboard for use in

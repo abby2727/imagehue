@@ -13,6 +13,12 @@ const MagnifyingGlass = ({
 }) => {
 	const magnifyCanvasRef = useRef(null);
 
+	// Check if user is on mobile device
+	const isMobile =
+		/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+			navigator.userAgent
+		) || window.innerWidth < 768;
+
 	useEffect(() => {
 		if (!isVisible || !sourceCanvas || !mousePosition) return;
 
@@ -108,7 +114,7 @@ const MagnifyingGlass = ({
 		} catch (error) {
 			console.warn('Error drawing magnifying glass:', error);
 		}
-	}, [isVisible, mousePosition, sourceCanvas, zoomLevel, size]);
+	}, [isVisible, mousePosition, sourceCanvas, zoomLevel, size, isMobile]);
 
 	/**
 	 * Draw grid overlay on the magnifying glass
@@ -261,9 +267,11 @@ const MagnifyingGlass = ({
 				}}
 			/>
 
-			{/* Zoom level indicator */}
+			{/* Zoom level indicator - Different text for mobile */}
 			<div className='absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-white/70 bg-black/50 px-2 py-1 rounded whitespace-nowrap'>
-				{zoomLevel}x zoom - Hold Ctrl
+				{isMobile
+					? `${zoomLevel}x zoom`
+					: `${zoomLevel}x zoom - Hold Ctrl`}
 			</div>
 		</div>
 	);
