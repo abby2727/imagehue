@@ -17,8 +17,12 @@ const MagnifyingGlass = ({
 		if (!isVisible || !sourceCanvas || !mousePosition) return;
 
 		const magnifyCanvas = magnifyCanvasRef.current;
-		const magnifyCtx = magnifyCanvas.getContext('2d');
-		const sourceCtx = sourceCanvas.getContext('2d');
+		const magnifyCtx = magnifyCanvas.getContext('2d', {
+			willReadFrequently: true
+		});
+		const sourceCtx = sourceCanvas.getContext('2d', {
+			willReadFrequently: true
+		});
 
 		if (!magnifyCtx || !sourceCtx) return;
 
@@ -65,7 +69,9 @@ const MagnifyingGlass = ({
 			const tempCanvas = document.createElement('canvas');
 			tempCanvas.width = sourceSize;
 			tempCanvas.height = sourceSize;
-			const tempCtx = tempCanvas.getContext('2d');
+			const tempCtx = tempCanvas.getContext('2d', {
+				willReadFrequently: true
+			});
 			tempCtx.putImageData(imageData, 0, 0);
 
 			// Draw zoomed image
