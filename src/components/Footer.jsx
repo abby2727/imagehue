@@ -33,12 +33,11 @@ const Footer = () => {
 						</p>
 					</div>
 
-					{/* Made with React */}
+					{/* Made with Love */}
 					<div className='text-center md:text-right'>
 						<p className='text-gray-500 text-sm'>
 							Made with{' '}
-							<Heart className='w-4 h-4 text-red-500 inline' />{' '}
-							using React.js
+							<Heart className='w-4 h-4 text-red-500 inline transition-all duration-300 hover:text-red-600 hover:fill-red-600 hover:scale-110 cursor-pointer' />
 						</p>
 					</div>
 				</div>
