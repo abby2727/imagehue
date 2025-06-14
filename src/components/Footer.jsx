@@ -8,7 +8,7 @@ import { Heart, Coffee, Github, ExternalLink } from 'lucide-react';
 const Footer = () => {
 	return (
 		<footer className='mt-12 border-t border-gray-200 bg-gray-50'>
-			<div className='max-w-6xl mx-auto px-4 py-6'>
+			<div className='max-w-7xl mx-auto px-6 py-6'>
 				<div className='flex flex-col md:flex-row justify-between items-center gap-6'>
 					{/* Support Section */}
 					<div className='text-center md:text-left'>

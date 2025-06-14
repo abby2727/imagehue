@@ -22,7 +22,7 @@ const AppContent = () => {
 
 			{/* Navigation */}
 			<div className='px-4 py-6'>
-				<div className='max-w-6xl mx-auto flex justify-center'>
+				<div className='max-w-7xl mx-auto flex justify-center'>
 					<Navigation />
 				</div>
 			</div>

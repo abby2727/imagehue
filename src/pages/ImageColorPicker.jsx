@@ -36,7 +36,7 @@ const ImageColorPicker = () => {
 
 	return (
 		<main className='flex-1 p-4 flex items-center justify-center'>
-			<div className='w-full max-w-6xl mx-auto'>
+			<div className='w-full max-w-7xl mx-auto'>
 				{/* Main Content Grid - Improved Mobile Layout */}
 				<div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
 					{/* Image Canvas Area */}

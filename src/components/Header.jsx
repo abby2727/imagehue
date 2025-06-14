@@ -9,7 +9,7 @@ import packageJson from '../../package.json';
 const Header = () => {
 	return (
 		<header className='bg-white border-b border-gray-200 shadow-sm'>
-			<div className='max-w-6xl mx-auto px-4 py-4'>
+			<div className='max-w-7xl mx-auto px-6 py-4'>
 				<div className='flex items-center justify-between'>
 					{/* Logo and Title */}
 					<div className='flex items-center gap-3'>
