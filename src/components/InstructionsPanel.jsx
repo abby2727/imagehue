@@ -16,6 +16,7 @@ const InstructionsPanel = () => {
 				</li>
 				<li>Click anywhere on the image to pick a color</li>
 				<li>Color values will appear in the panel on the right</li>
+				<li>Hold Ctrl while hovering to magnify</li>
 			</ul>
 		</div>
 	);

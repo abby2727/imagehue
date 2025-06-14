@@ -53,7 +53,6 @@ const ImageCanvas = ({
 						<button
 							onClick={dismissMagnifyHint}
 							className='absolute top-1 right-1 p-1 text-amber-600 hover:text-amber-800 hover:bg-amber-200 rounded transition-colors'
-							title='Dismiss (will reappear tomorrow)'
 							aria-label='Dismiss magnify hint'
 						>
 							<X size={14} />
