@@ -9,7 +9,7 @@ import ImageColorPicker from './pages/ImageColorPicker';
 import VisualColorPicker from './pages/VisualColorPicker';
 
 /**
- * PixelPick - Main Application Component
+ * ImageHue - Main Application Component
  * A React-based color picker tool that allows users to upload or paste images
  * and extract color values (Hex and RGB) by clicking on pixels, or use a visual color picker
  */

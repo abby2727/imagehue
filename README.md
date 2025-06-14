@@ -1,4 +1,4 @@
-# PixelPick - Color Picker Tool
+# ImageHue - Color Picker Tool
 
 A modern, responsive web application that allows users to upload or paste images and extract color values (Hex and RGB) by clicking on any pixel in the image.
 
