@@ -21,7 +21,7 @@ const AppContent = () => {
 			<Header />
 
 			{/* Navigation */}
-			<div className='px-4 py-6'>
+			<div className='px-4 pt-4'>
 				<div className='max-w-7xl mx-auto flex justify-center'>
 					<Navigation />
 				</div>
