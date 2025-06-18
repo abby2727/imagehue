@@ -5,6 +5,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Navigation from './components/Navigation';
 import FeedbackMessage from './components/FeedbackMessage';
+import SEOHead from './components/SEOHead';
 import ImageColorPicker from './pages/ImageColorPicker';
 import VisualColorPicker from './pages/VisualColorPicker';
 
@@ -18,6 +19,7 @@ const AppContent = () => {
 
 	return (
 		<div className='min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 flex flex-col'>
+			<SEOHead />
 			<Header />
 
 			{/* Navigation */}

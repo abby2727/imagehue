@@ -1,0 +1,11 @@
+# Handle SPA routing - must be last rule
+/*    /index.html   200
+
+# Ensure trailing slash consistency
+/color-picker/    /color-picker   301!
+
+# Handle common URL variations
+/image-color-picker    /    301
+/pixel-color-picker    /    301
+/color-extractor       /    301
+/visual-picker         /color-picker    301 
