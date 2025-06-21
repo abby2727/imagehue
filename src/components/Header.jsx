@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Palette, Coffee, ExternalLink } from 'lucide-react';
 import packageJson from '../../package.json';
 
@@ -13,11 +14,21 @@ const Header = () => {
 				<div className='flex items-center justify-between'>
 					{/* Logo and Title */}
 					<div className='flex items-center gap-3'>
-						<Palette className='w-8 h-8 text-gray-700' />
+						<Link
+							to='/'
+							className='hover:scale-110 transition-transform duration-200'
+						>
+							<Palette className='w-8 h-8 text-gray-700' />
+						</Link>
 						<div>
-							<h1 className='text-2xl font-bold text-gray-800'>
-								ImageHue
-							</h1>
+							<Link
+								to='/'
+								className='inline-block hover:scale-105 transition-transform duration-200'
+							>
+								<h1 className='text-2xl font-bold text-gray-800'>
+									ImageHue
+								</h1>
+							</Link>
 							<p className='text-sm text-gray-600 hidden sm:block'>
 								Professional Image Color Picker & Pixel Color
 								Extractor Tool
