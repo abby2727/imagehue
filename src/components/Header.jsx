@@ -42,7 +42,7 @@ const Header = () => {
 							v{packageJson.version}
 						</span>
 						<a
-							href='https://coff.ee/abby2727'
+							href='https://www.buymeacoffee.com/abby2727'
 							target='_blank'
 							rel='noopener noreferrer'
 							className='inline-flex items-center gap-1 bg-yellow-400 hover:bg-yellow-500 text-yellow-900 text-xs font-medium px-2 py-1 rounded-full transition-colors duration-200 shadow-sm hover:shadow-md'
