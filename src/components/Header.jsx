@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Palette, Coffee, ExternalLink } from 'lucide-react';
+import { Palette, Bug, ExternalLink } from 'lucide-react';
 import packageJson from '../../package.json';
 
 /**
@@ -36,19 +36,16 @@ const Header = () => {
 						</div>
 					</div>
 
-					{/* Version Badge and Buy Me a Coffee */}
 					<div className='hidden md:flex flex-col items-end gap-2'>
 						<span className='bg-gray-100 text-gray-600 text-xs font-medium px-2 py-1 rounded-full'>
 							v{packageJson.version}
 						</span>
 						<a
-							href='https://www.buymeacoffee.com/abby2727'
-							target='_blank'
-							rel='noopener noreferrer'
-							className='inline-flex items-center gap-1 bg-yellow-400 hover:bg-yellow-500 text-yellow-900 text-xs font-medium px-2 py-1 rounded-full transition-colors duration-200 shadow-sm hover:shadow-md'
+							href='mailto:abbydev261@gmail.com?subject=Bug Report - ImageHue&body=Hi,%0D%0A%0D%0AI found a bug in ImageHue:%0D%0A%0D%0A(explain what happen and include images if possible...)%0D%0A%0D%0AThanks!'
+							className='inline-flex items-center gap-1 bg-red-100 hover:bg-red-200 text-red-700 text-xs font-medium px-2 py-1 rounded-full transition-colors duration-200 shadow-sm hover:shadow-md'
 						>
-							<Coffee className='w-3 h-3' />
-							Buy Me a Coffee
+							<Bug className='w-3 h-3' />
+							Found a bug? Report here
 							<ExternalLink className='w-2 h-2' />
 						</a>
 					</div>
