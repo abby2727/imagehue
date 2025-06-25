@@ -1,64 +1,32 @@
-# ImageHue - Color Picker Tool
+# [ImageHue](https://imagehue.com/) - Your Ultimate Color Companion
 
-A modern, responsive web application that allows users to upload or paste images and extract color values (Hex and RGB) by clicking on any pixel in the image.
+A modern, responsive web application crafted with creators, developers, and designers in mind. ImageHue is a professional image color picker and pixel color extractor tool that helps you get precise color data from any image quickly and easily.
 
 ## Features
 
--   🖼️ **Image Upload**: Upload images from your device
--   📋 **Clipboard Support**: Paste images directly from clipboard (Ctrl+V / Cmd+V)
--   🎨 **Color Picking**: Click any pixel to get its exact color values
--   📝 **Multiple Formats**: Get both Hex (#RRGGBB) and RGB (r, g, b) values
--   📱 **Responsive Design**: Works seamlessly on desktop and mobile devices
--   🎯 **One-Click Copy**: Copy color values to clipboard instantly
--   🔍 **Magnifying Glass**: Hover over images to see an 8x zoomed view with grid overlay
--   🔄 **Reset Function**: Clear current image and start fresh
--   🌐 **Default Sample**: Loads with a beautiful default image
+-   **Image Upload**: Upload images from your device
+-   **Clipboard Support**: Paste images directly from clipboard (Ctrl+V / Cmd+V)
+-   **Pixel-Perfect Color Picking**: Click any pixel to get its exact color values
+-   **Multiple Color Formats**: Supports Hex (#RRGGBB), RGB (r, g, b), HSL, and more.
+-   **Responsive Design**: Works seamlessly on desktop and mobile devices
+-   **Magnifying Glass Tool**: Hold **Ctrl** while hovering to zoom in for precise pixel selection.
+-   **Recent History**: Automatically keeps track of your recently picked colors (**coming soon**).
 
 ## Technologies Used
 
--   **React.js** - Frontend framework with ES6 syntax
--   **Vite** - Fast build tool and development server
--   **Tailwind CSS** - Utility-first CSS framework for styling
+-   **React.js** - For building the user interface
+-   **HTML Canvas API** - For image manipulation and pixel data extraction
+-   **Clipboard API** - For clipboard operations (copy/paste)
+-   **react-colorful** - Lightweight color picker library for color display
+-   **Tailwind CSS** - For modern, responsive styling
 -   **Lucide React** - Beautiful icon library
--   **HTML Canvas API** - For image manipulation and color extraction
--   **Clipboard API** - For copying color values and pasting images
-
-## Architecture & Code Organization
-
-The application follows modern React best practices with a modular, component-based architecture:
-
-### **Component Structure**
-
--   **Functional Components**: All components are functional with hooks
--   **Single Responsibility**: Each component has a focused, specific purpose
--   **Reusable Design**: Components are designed for reusability and maintainability
--   **Props Interface**: Clear prop interfaces for component communication
-
-### **Custom Hooks**
-
--   **useFeedback**: Manages user feedback messages and notifications
--   **useImageHandler**: Handles all image loading, canvas operations, and color picking
--   **useClipboard**: Manages clipboard operations with browser compatibility
-
-### **State Management**
-
--   **Local State**: Uses React's built-in state management with hooks
--   **Custom Hooks**: Logic separation for better organization and reusability
--   **Prop Drilling**: Minimal prop drilling with focused component responsibilities
-
-### **Code Quality Features**
-
--   **TypeScript-ready**: JSDoc comments for better developer experience
--   **Error Handling**: Comprehensive error handling with user feedback
--   **Browser Compatibility**: Fallbacks for older browsers
--   **Performance**: Optimized with useCallback and useMemo where appropriate
 
 ## Getting Started
 
 ### Prerequisites
 
 -   Node.js (version 16 or higher)
--   npm or yarn package manager
+-   npm, yarn, or any other package manager
 
 ### Installation
 
@@ -68,6 +36,10 @@ The application follows modern React best practices with a modular, component-ba
 
 ```bash
 npm install
+# or
+yarn install
+# or
+pnpm install
 ```
 
 ### Development
@@ -76,103 +48,15 @@ Start the development server:
 
 ```bash
 npm run dev
+# or
+yarn dev
+# or
+pnpm dev
 ```
 
 The application will be available at `http://localhost:5173`
 
-### Building for Production
-
-Create a production build:
-
-```bash
-npm run build
-```
-
-The built files will be in the `dist` directory, ready for deployment to any static hosting service.
-
-## Usage
-
-1. **Load an Image**:
-
-    - Click "Upload Image" to select a file from your device
-    - Or paste an image from clipboard using Ctrl+V (Cmd+V on Mac)
-    - The app loads with a default colorful image for immediate use
-
-2. **Pick Colors**:
-
-    - Hover over the image to see a magnified view for precise color selection
-    - Click anywhere on the image to select that pixel's color
-    - The color information will appear in the right panel
-
-3. **Copy Color Values**:
-
-    - Use the copy buttons next to each color value
-    - Or click the larger "Copy Hex" / "Copy RGB" buttons
-    - Values are automatically copied to your clipboard
-
-4. **Reset**:
-    - Click the "Reset" button to clear the current image and start fresh
-
-## File Structure
-
-```
-pixelpick/
-├── public/
-├── src/
-│   ├── components/           # Reusable UI components
-│   │   ├── Header.jsx       # App header with title and logo
-│   │   ├── ImageCanvas.jsx  # Main canvas area with controls
-│   │   ├── ControlButtons.jsx # Upload, paste, reset buttons
-│   │   ├── ColorInfoPanel.jsx # Color information sidebar
-│   │   ├── ColorDisplay.jsx # Color preview and values
-│   │   ├── ImageUploadArea.jsx # Upload placeholder
-│   │   ├── InstructionsPanel.jsx # Usage instructions
-│   │   ├── EmptyColorState.jsx # No color selected state
-│   │   ├── FeedbackMessage.jsx # Floating feedback messages
-│   │   ├── MagnifyingGlass.jsx # Zoom magnifier with grid overlay
-│   │   └── index.js        # Component exports
-│   ├── hooks/              # Custom React hooks
-│   │   ├── useFeedback.js  # Feedback message management
-│   │   ├── useImageHandler.js # Image loading and processing
-│   │   ├── useClipboard.js # Clipboard operations
-│   │   └── index.js        # Hook exports
-│   ├── App.jsx             # Main application orchestrator
-│   ├── main.jsx            # React entry point
-│   └── index.css           # Global styles and Tailwind imports
-├── index.html              # HTML template
-├── package.json            # Dependencies and scripts
-├── tailwind.config.js      # Tailwind CSS configuration
-├── postcss.config.js       # PostCSS configuration
-├── vite.config.js          # Vite build configuration
-└── README.md              # This file
-```
-
-## Browser Compatibility
-
--   Chrome 63+ (full features including Clipboard API)
--   Firefox 53+ (clipboard paste requires user permission)
--   Safari 13.1+ (limited clipboard support)
--   Edge 79+
-
-For older browsers, the app gracefully falls back to `document.execCommand('copy')` for copying functionality.
-
-## Deployment
-
-The application is built for static hosting and can be deployed to:
-
--   **Hostinger Shared Hosting** (upload `dist` folder contents)
--   **Netlify** (drag & drop `dist` folder)
--   **Vercel** (connect GitHub repository)
--   **GitHub Pages** (serve from `dist` folder)
--   Any other static hosting service
-
-### Deployment Steps for Hostinger:
-
-1. Run `npm run build`
-2. Upload all contents of the `dist` folder to your hosting directory
-3. Ensure the uploaded `index.html` is in the root directory
-
-## Contributing
+## 🤝 Contributing to ImageHue
 
 1. Fork the repository
 2. Create a feature branch
