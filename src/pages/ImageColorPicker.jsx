@@ -1,4 +1,3 @@
-import React from 'react';
 import ImageCanvas from '../components/ImageCanvas';
 import ColorInfoPanel from '../components/ColorInfoPanel';
 import MagnifyingGlass from '../components/MagnifyingGlass';
@@ -14,16 +13,13 @@ const ImageColorPicker = () => {
 	};
 	const { copyToClipboard } = useClipboard(showFeedback);
 	const {
-		// State
 		selectedColor,
 		isLoading,
 		imageLoaded,
 		showMagnifier,
 		mousePosition,
-		// Refs
 		canvasRef,
 		fileInputRef,
-		// Handlers
 		handleCanvasClick,
 		handleCanvasMouseMove,
 		handleCanvasMouseEnter,
@@ -37,9 +33,7 @@ const ImageColorPicker = () => {
 	return (
 		<main className='flex-1 p-4 flex items-center justify-center'>
 			<div className='w-full max-w-7xl mx-auto'>
-				{/* Main Content Grid - Improved Mobile Layout */}
 				<div className='grid grid-cols-1 lg:grid-cols-3 gap-6'>
-					{/* Image Canvas Area */}
 					<div className='lg:col-span-2 order-1 lg:order-1'>
 						<ImageCanvas
 							canvasRef={canvasRef}
@@ -57,14 +51,12 @@ const ImageColorPicker = () => {
 						/>
 					</div>
 
-					{/* Color Information Panel - Higher Priority on Mobile */}
 					<div className='lg:col-span-1 order-2 lg:order-2'>
 						<ColorInfoPanel
 							selectedColor={selectedColor}
 							onCopy={copyToClipboard}
 						/>
 
-						{/* Mobile Quick Tips */}
 						<div className='mt-4 lg:hidden'>
 							<div className='bg-blue-50 border border-blue-200 rounded-lg p-3'>
 								<h4 className='text-sm font-semibold text-blue-800 mb-2'>
@@ -82,7 +74,6 @@ const ImageColorPicker = () => {
 					</div>
 				</div>
 
-				{/* Hidden File Input */}
 				<input
 					ref={fileInputRef}
 					type='file'

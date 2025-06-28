@@ -1,10 +1,5 @@
-import React from 'react';
 import { Upload, Clipboard, RotateCcw } from 'lucide-react';
 
-/**
- * ControlButtons Component
- * Renders the control buttons for uploading, pasting, and resetting
- */
 const ControlButtons = ({
 	onUploadClick,
 	onPasteClick,

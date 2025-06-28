@@ -36,10 +36,8 @@ const SEOHead = () => {
 	const currentPage = pageData[location.pathname] || pageData['/'];
 
 	React.useEffect(() => {
-		// Update document title
 		document.title = currentPage.title;
 
-		// Update meta description
 		const metaDescription = document.querySelector(
 			'meta[name="description"]'
 		);
@@ -47,7 +45,6 @@ const SEOHead = () => {
 			metaDescription.setAttribute('content', currentPage.description);
 		}
 
-		// Update canonical URL
 		let canonicalLink = document.querySelector('link[rel="canonical"]');
 		if (canonicalLink) {
 			canonicalLink.setAttribute('href', currentPage.canonical);
@@ -58,19 +55,16 @@ const SEOHead = () => {
 			document.head.appendChild(canonicalLink);
 		}
 
-		// Update Open Graph URL
 		const ogUrl = document.querySelector('meta[property="og:url"]');
 		if (ogUrl) {
 			ogUrl.setAttribute('content', currentPage.canonical);
 		}
 
-		// Update Open Graph title
 		const ogTitle = document.querySelector('meta[property="og:title"]');
 		if (ogTitle) {
 			ogTitle.setAttribute('content', currentPage.ogTitle);
 		}
 
-		// Update Open Graph description
 		const ogDescription = document.querySelector(
 			'meta[property="og:description"]'
 		);
@@ -78,13 +72,11 @@ const SEOHead = () => {
 			ogDescription.setAttribute('content', currentPage.ogDescription);
 		}
 
-		// Update Twitter URL
 		const twitterUrl = document.querySelector('meta[name="twitter:url"]');
 		if (twitterUrl) {
 			twitterUrl.setAttribute('content', currentPage.canonical);
 		}
 
-		// Update Twitter title
 		const twitterTitle = document.querySelector(
 			'meta[name="twitter:title"]'
 		);
@@ -92,7 +84,6 @@ const SEOHead = () => {
 			twitterTitle.setAttribute('content', currentPage.ogTitle);
 		}
 
-		// Update Twitter description
 		const twitterDescription = document.querySelector(
 			'meta[name="twitter:description"]'
 		);
@@ -103,14 +94,13 @@ const SEOHead = () => {
 			);
 		}
 
-		// Update keywords
 		const metaKeywords = document.querySelector('meta[name="keywords"]');
 		if (metaKeywords) {
 			metaKeywords.setAttribute('content', currentPage.keywords);
 		}
 	}, [location.pathname, currentPage]);
 
-	return null; // This component doesn't render anything
+	return null;
 };
 
 export default SEOHead;

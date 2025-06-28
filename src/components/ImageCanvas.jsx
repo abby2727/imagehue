@@ -1,15 +1,9 @@
-import React from 'react';
 import { X } from 'lucide-react';
 import ControlButtons from './ControlButtons';
 import ImageUploadArea from './ImageUploadArea';
 import InstructionsPanel from './InstructionsPanel';
-import MagnifyingGlass from './MagnifyingGlass';
 import useDismissibleNotification from '../hooks/useDismissibleNotification';
 
-/**
- * ImageCanvas Component
- * Handles the main canvas area with controls, loading states, and instructions
- */
 const ImageCanvas = ({
 	canvasRef,
 	onCanvasClick,
@@ -36,7 +30,6 @@ const ImageCanvas = ({
 	return (
 		<div className='lg:col-span-2'>
 			<div className='glass-card p-6'>
-				{/* Control Buttons */}
 				<ControlButtons
 					onUploadClick={onUploadClick}
 					onPasteClick={onPasteClick}
@@ -44,7 +37,6 @@ const ImageCanvas = ({
 					isLoading={isLoading}
 				/>
 
-				{/* Magnify Hint - Hidden on Mobile */}
 				{imageLoaded && showMagnifyHint && !isMobile && (
 					<div className='mb-1 p-2 bg-amber-100/80 border border-amber-300 rounded-lg relative'>
 						<div className='flex items-center justify-center gap-2 pr-6'>
@@ -67,7 +59,6 @@ const ImageCanvas = ({
 					</div>
 				)}
 
-				{/* Canvas Area */}
 				<div className='relative'>
 					<div
 						className='canvas-container'
@@ -96,7 +87,6 @@ const ImageCanvas = ({
 					</div>
 				</div>
 
-				{/* Instructions Panel - Hidden on Mobile */}
 				<div className='hidden md:block'>
 					<InstructionsPanel />
 				</div>

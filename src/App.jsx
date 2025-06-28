@@ -1,4 +1,3 @@
-import React from 'react';
 import { Routes, Route } from 'react-router-dom';
 import { AppProvider, useAppContext } from './contexts/AppContext';
 import Header from './components/Header';
@@ -9,11 +8,14 @@ import SEOHead from './components/SEOHead';
 import ImageColorPicker from './pages/ImageColorPicker';
 import VisualColorPicker from './pages/VisualColorPicker';
 
-/**
- * ImageHue - Main Application Component
- * A React-based color picker tool that allows users to upload or paste images
- * and extract color values (Hex and RGB) by clicking on pixels, or use a visual color picker
- */
+const App = () => {
+	return (
+		<AppProvider>
+			<AppContent />
+		</AppProvider>
+	);
+};
+
 const AppContent = () => {
 	const { feedback } = useAppContext();
 
@@ -22,7 +24,6 @@ const AppContent = () => {
 			<SEOHead />
 			<Header />
 
-			{/* Navigation */}
 			<div className='px-4 pt-4'>
 				<div className='max-w-7xl mx-auto flex justify-center'>
 					<Navigation />
@@ -36,19 +37,9 @@ const AppContent = () => {
 			</Routes>
 
 			<Footer />
-
-			{/* Global Feedback Message */}
 			<FeedbackMessage message={feedback} />
 		</div>
 	);
 };
-
-function App() {
-	return (
-		<AppProvider>
-			<AppContent />
-		</AppProvider>
-	);
-}
 
 export default App;

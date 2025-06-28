@@ -1,10 +1,6 @@
 import { useRef, useCallback, useEffect } from 'react';
 import { useAppContext } from '../contexts/AppContext';
 
-/**
- * Custom hook that wraps useImageHandler with global context
- * This ensures state persists across route changes
- */
 const useImageHandlerWithContext = (showFeedback) => {
 	const { imagePickerState, updateImagePickerState } = useAppContext();
 	const canvasRef = useRef(null);
@@ -13,9 +9,6 @@ const useImageHandlerWithContext = (showFeedback) => {
 	const defaultImageUrl =
 		'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800&h=600&fit=crop&auto=format&q=80';
 
-	/**
-	 * Convert RGB values to hexadecimal color code
-	 */
 	const rgbToHex = useCallback((r, g, b) => {
 		const toHex = (n) => {
 			const hex = n.toString(16);
@@ -24,9 +17,6 @@ const useImageHandlerWithContext = (showFeedback) => {
 		return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
 	}, []);
 
-	/**
-	 * Draw image on canvas with proper scaling and centering
-	 */
 	const drawImageOnCanvas = useCallback(
 		(img) => {
 			const canvas = canvasRef.current;
@@ -63,9 +53,6 @@ const useImageHandlerWithContext = (showFeedback) => {
 		[updateImagePickerState]
 	);
 
-	/**
-	 * Load image from various sources
-	 */
 	const loadImage = useCallback(
 		(source) => {
 			updateImagePickerState({
@@ -101,9 +88,6 @@ const useImageHandlerWithContext = (showFeedback) => {
 		[drawImageOnCanvas, showFeedback, updateImagePickerState]
 	);
 
-	/**
-	 * Handle file upload from input element
-	 */
 	const handleFileUpload = useCallback(
 		(event) => {
 			const file = event.target.files[0];
@@ -117,9 +101,6 @@ const useImageHandlerWithContext = (showFeedback) => {
 		[loadImage, showFeedback]
 	);
 
-	/**
-	 * Handle paste event for pasting images from clipboard
-	 */
 	const handlePaste = useCallback(
 		(event) => {
 			const items = event.clipboardData?.items;
@@ -140,9 +121,6 @@ const useImageHandlerWithContext = (showFeedback) => {
 		[loadImage, showFeedback]
 	);
 
-	/**
-	 * Handle direct clipboard paste when button is clicked
-	 */
 	const handleClipboardPaste = useCallback(async () => {
 		try {
 			if (!navigator.clipboard || !navigator.clipboard.read) {
@@ -202,9 +180,6 @@ const useImageHandlerWithContext = (showFeedback) => {
 		}
 	}, [loadImage, showFeedback]);
 
-	/**
-	 * Handle mouse move over canvas for magnifying glass
-	 */
 	const handleCanvasMouseMove = useCallback(
 		(event) => {
 			if (!imagePickerState.imageLoaded) return;
@@ -219,13 +194,9 @@ const useImageHandlerWithContext = (showFeedback) => {
 		[imagePickerState.imageLoaded, updateImagePickerState]
 	);
 
-	/**
-	 * Handle mouse enter canvas
-	 */
 	const handleCanvasMouseEnter = useCallback(() => {
 		if (imagePickerState.imageLoaded) {
 			updateImagePickerState({ isHoveringCanvas: true });
-			// Only show magnifier if Ctrl is also pressed
 			if (imagePickerState.isCtrlPressed) {
 				updateImagePickerState({ showMagnifier: true });
 			}
@@ -236,9 +207,6 @@ const useImageHandlerWithContext = (showFeedback) => {
 		updateImagePickerState
 	]);
 
-	/**
-	 * Handle mouse leave canvas
-	 */
 	const handleCanvasMouseLeave = useCallback(() => {
 		updateImagePickerState({
 			isHoveringCanvas: false,
@@ -246,14 +214,10 @@ const useImageHandlerWithContext = (showFeedback) => {
 		});
 	}, [updateImagePickerState]);
 
-	/**
-	 * Handle keydown events for Ctrl key
-	 */
 	const handleKeyDown = useCallback(
 		(event) => {
 			if (event.key === 'Control') {
 				updateImagePickerState({ isCtrlPressed: true });
-				// Show magnifier if also hovering over canvas
 				if (
 					imagePickerState.isHoveringCanvas &&
 					imagePickerState.imageLoaded
@@ -269,16 +233,11 @@ const useImageHandlerWithContext = (showFeedback) => {
 		]
 	);
 
-	/**
-	 * Handle keyup events for Ctrl key
-	 */
 	const handleKeyUp = useCallback(() => {
 		updateImagePickerState({ isCtrlPressed: false, showMagnifier: false });
 	}, [updateImagePickerState]);
 
-	/**
-	 * Handle canvas click to pick color from image
-	 */
+	// Handle canvas click to pick color
 	const handleCanvasClick = useCallback(
 		(event) => {
 			const canvas = canvasRef.current;
@@ -326,9 +285,6 @@ const useImageHandlerWithContext = (showFeedback) => {
 		]
 	);
 
-	/**
-	 * Reset application to initial state
-	 */
 	const resetApp = useCallback(() => {
 		updateImagePickerState({
 			image: null,
@@ -348,10 +304,6 @@ const useImageHandlerWithContext = (showFeedback) => {
 
 		showFeedback('Application reset');
 	}, [showFeedback, updateImagePickerState]);
-
-	/**
-	 * Trigger file input click
-	 */
 	const handleUploadClick = useCallback(() => {
 		fileInputRef.current?.click();
 	}, []);
@@ -363,10 +315,8 @@ const useImageHandlerWithContext = (showFeedback) => {
 		}
 	}, [loadImage, imagePickerState.image, imagePickerState.isLoading]);
 
-	// Redraw image when canvas becomes available (after component remount)
 	useEffect(() => {
 		if (imagePickerState.image && canvasRef.current) {
-			// Add a small delay to ensure canvas is ready
 			const timer = setTimeout(() => {
 				drawImageOnCanvas(imagePickerState.image);
 			}, 10);
@@ -375,7 +325,6 @@ const useImageHandlerWithContext = (showFeedback) => {
 		}
 	}, [imagePickerState.image, drawImageOnCanvas]);
 
-	// Add global paste event listener
 	useEffect(() => {
 		document.addEventListener('paste', handlePaste);
 		return () => {
@@ -383,12 +332,10 @@ const useImageHandlerWithContext = (showFeedback) => {
 		};
 	}, [handlePaste]);
 
-	// Add global keyboard event listeners for Ctrl key
 	useEffect(() => {
 		document.addEventListener('keydown', handleKeyDown);
 		document.addEventListener('keyup', handleKeyUp);
 
-		// Clean up Ctrl state when component unmounts
 		return () => {
 			document.removeEventListener('keydown', handleKeyDown);
 			document.removeEventListener('keyup', handleKeyUp);
@@ -396,16 +343,13 @@ const useImageHandlerWithContext = (showFeedback) => {
 	}, [handleKeyDown, handleKeyUp]);
 
 	return {
-		// State from context
 		selectedColor: imagePickerState.selectedColor,
 		isLoading: imagePickerState.isLoading,
 		imageLoaded: imagePickerState.imageLoaded,
 		showMagnifier: imagePickerState.showMagnifier,
 		mousePosition: imagePickerState.mousePosition,
-		// Refs
 		canvasRef,
 		fileInputRef,
-		// Handlers
 		handleCanvasClick,
 		handleCanvasMouseMove,
 		handleCanvasMouseEnter,

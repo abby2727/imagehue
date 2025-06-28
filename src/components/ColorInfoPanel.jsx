@@ -1,12 +1,7 @@
-import React from 'react';
 import { Palette } from 'lucide-react';
 import ColorDisplay from './ColorDisplay';
 import EmptyColorState from './EmptyColorState';
 
-/**
- * ColorInfoPanel Component
- * Displays the color information panel with selected color details or empty state
- */
 const ColorInfoPanel = ({ selectedColor, onCopy }) => {
 	return (
 		<div className='lg:col-span-1'>

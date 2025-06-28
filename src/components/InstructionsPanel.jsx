@@ -1,11 +1,4 @@
-import React from 'react';
-
-/**
- * InstructionsPanel Component
- * Displays usage instructions for the image color picker application
- */
 const InstructionsPanel = () => {
-	// Check if user is on mobile device
 	const isMobile =
 		/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
 			navigator.userAgent

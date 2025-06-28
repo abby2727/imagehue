@@ -1,18 +1,12 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Palette, Bug, ExternalLink } from 'lucide-react';
 import packageJson from '../../package.json';
 
-/**
- * Header Component
- * Displays the application title, logo, and description as a top navigation bar
- */
 const Header = () => {
 	return (
 		<header className='bg-white border-b border-gray-200 shadow-sm'>
 			<div className='max-w-7xl mx-auto px-6 py-4'>
 				<div className='flex items-center justify-between'>
-					{/* Logo and Title */}
 					<div className='flex items-center gap-3'>
 						<Link
 							to='/'

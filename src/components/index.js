@@ -1,4 +1,3 @@
-// Export all components from a central location for easier imports
 export { default as Header } from './Header';
 export { default as ControlButtons } from './ControlButtons';
 export { default as ImageCanvas } from './ImageCanvas';

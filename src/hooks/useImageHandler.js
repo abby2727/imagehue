@@ -1,8 +1,5 @@
 import { useState, useRef, useCallback, useEffect } from 'react';
 
-/**
- * Custom hook for handling image loading, canvas drawing, and color picking
- */
 const useImageHandler = (showFeedback) => {
 	const [image, setImage] = useState(null);
 	const [selectedColor, setSelectedColor] = useState(null);
@@ -19,9 +16,6 @@ const useImageHandler = (showFeedback) => {
 	const defaultImageUrl =
 		'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800&h=600&fit=crop&auto=format&q=80';
 
-	/**
-	 * Convert RGB values to hexadecimal color code
-	 */
 	const rgbToHex = useCallback((r, g, b) => {
 		const toHex = (n) => {
 			const hex = n.toString(16);
@@ -30,9 +24,6 @@ const useImageHandler = (showFeedback) => {
 		return `#${toHex(r)}${toHex(g)}${toHex(b)}`.toUpperCase();
 	}, []);
 
-	/**
-	 * Draw image on canvas with proper scaling and centering
-	 */
 	const drawImageOnCanvas = useCallback((img) => {
 		const canvas = canvasRef.current;
 		const ctx = canvas.getContext('2d', { willReadFrequently: true });
@@ -66,9 +57,6 @@ const useImageHandler = (showFeedback) => {
 		setImageLoaded(true);
 	}, []);
 
-	/**
-	 * Load image from various sources
-	 */
 	const loadImage = useCallback(
 		(source) => {
 			setIsLoading(true);
@@ -103,9 +91,6 @@ const useImageHandler = (showFeedback) => {
 		[drawImageOnCanvas, showFeedback]
 	);
 
-	/**
-	 * Handle file upload from input element
-	 */
 	const handleFileUpload = useCallback(
 		(event) => {
 			const file = event.target.files[0];
@@ -119,9 +104,6 @@ const useImageHandler = (showFeedback) => {
 		[loadImage, showFeedback]
 	);
 
-	/**
-	 * Handle paste event for pasting images from clipboard
-	 */
 	const handlePaste = useCallback(
 		(event) => {
 			const items = event.clipboardData?.items;
@@ -142,9 +124,6 @@ const useImageHandler = (showFeedback) => {
 		[loadImage, showFeedback]
 	);
 
-	/**
-	 * Handle direct clipboard paste when button is clicked
-	 */
 	const handleClipboardPaste = useCallback(async () => {
 		try {
 			if (!navigator.clipboard || !navigator.clipboard.read) {
@@ -204,9 +183,6 @@ const useImageHandler = (showFeedback) => {
 		}
 	}, [loadImage, showFeedback]);
 
-	/**
-	 * Handle mouse move over canvas for magnifying glass
-	 */
 	const handleCanvasMouseMove = useCallback(
 		(event) => {
 			if (!imageLoaded) return;
@@ -219,35 +195,24 @@ const useImageHandler = (showFeedback) => {
 		[imageLoaded]
 	);
 
-	/**
-	 * Handle mouse enter canvas
-	 */
 	const handleCanvasMouseEnter = useCallback(() => {
 		if (imageLoaded) {
 			setIsHoveringCanvas(true);
-			// Only show magnifier if Ctrl is also pressed
 			if (isCtrlPressed) {
 				setShowMagnifier(true);
 			}
 		}
 	}, [imageLoaded, isCtrlPressed]);
 
-	/**
-	 * Handle mouse leave canvas
-	 */
 	const handleCanvasMouseLeave = useCallback(() => {
 		setIsHoveringCanvas(false);
 		setShowMagnifier(false);
 	}, []);
 
-	/**
-	 * Handle keydown events for Ctrl key
-	 */
 	const handleKeyDown = useCallback(
 		(event) => {
 			if (event.key === 'Control') {
 				setIsCtrlPressed(true);
-				// Show magnifier if also hovering over canvas
 				if (isHoveringCanvas && imageLoaded) {
 					setShowMagnifier(true);
 				}
@@ -256,9 +221,6 @@ const useImageHandler = (showFeedback) => {
 		[isHoveringCanvas, imageLoaded]
 	);
 
-	/**
-	 * Handle keyup events for Ctrl key
-	 */
 	const handleKeyUp = useCallback((event) => {
 		if (event.key === 'Control') {
 			setIsCtrlPressed(false);
@@ -266,9 +228,6 @@ const useImageHandler = (showFeedback) => {
 		}
 	}, []);
 
-	/**
-	 * Handle canvas click to pick color from image
-	 */
 	const handleCanvasClick = useCallback(
 		(event) => {
 			const canvas = canvasRef.current;
@@ -310,9 +269,6 @@ const useImageHandler = (showFeedback) => {
 		[imageLoaded, rgbToHex, showFeedback]
 	);
 
-	/**
-	 * Reset application to initial state
-	 */
 	const resetApp = useCallback(() => {
 		setImage(null);
 		setSelectedColor(null);
@@ -331,22 +287,16 @@ const useImageHandler = (showFeedback) => {
 		showFeedback('Application reset');
 	}, [showFeedback]);
 
-	/**
-	 * Trigger file input click
-	 */
 	const handleUploadClick = useCallback(() => {
 		fileInputRef.current?.click();
 	}, []);
 
-	// Load default image on mount
 	useEffect(() => {
 		loadImage(defaultImageUrl);
 	}, [loadImage, defaultImageUrl]);
 
-	// Redraw image when canvas becomes available (after component remount)
 	useEffect(() => {
 		if (image && canvasRef.current) {
-			// Add a small delay to ensure canvas is ready
 			const timer = setTimeout(() => {
 				drawImageOnCanvas(image);
 			}, 10);
@@ -355,7 +305,6 @@ const useImageHandler = (showFeedback) => {
 		}
 	}, [image, drawImageOnCanvas, canvasRef.current]);
 
-	// Add global paste event listener
 	useEffect(() => {
 		document.addEventListener('paste', handlePaste);
 		return () => {
@@ -363,12 +312,10 @@ const useImageHandler = (showFeedback) => {
 		};
 	}, [handlePaste]);
 
-	// Add global keyboard event listeners for Ctrl key
 	useEffect(() => {
 		document.addEventListener('keydown', handleKeyDown);
 		document.addEventListener('keyup', handleKeyUp);
 
-		// Clean up Ctrl state when component unmounts
 		return () => {
 			document.removeEventListener('keydown', handleKeyDown);
 			document.removeEventListener('keyup', handleKeyUp);
@@ -376,17 +323,14 @@ const useImageHandler = (showFeedback) => {
 	}, [handleKeyDown, handleKeyUp]);
 
 	return {
-		// State
 		image,
 		selectedColor,
 		isLoading,
 		imageLoaded,
 		showMagnifier,
 		mousePosition,
-		// Refs
 		canvasRef,
 		fileInputRef,
-		// Handlers
 		handleCanvasClick,
 		handleCanvasMouseMove,
 		handleCanvasMouseEnter,

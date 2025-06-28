@@ -1,22 +1,14 @@
-import React from 'react';
-import { Heart, Coffee, Github, ExternalLink } from 'lucide-react';
+import { Heart, Coffee, ExternalLink } from 'lucide-react';
 
-/**
- * Footer Component
- * Contains app information, links, and Buy Me a Coffee button
- */
 const Footer = () => {
 	return (
 		<footer className='mt-12 border-t border-gray-200 bg-gray-50'>
 			<div className='max-w-7xl mx-auto px-6 py-6'>
 				<div className='flex flex-col md:flex-row justify-between items-center gap-6'>
-					{/* Support Section */}
 					<div className='text-center md:text-left'>
 						<h4 className='font-semibold text-gray-800 mb-3'>
 							Support the Project
 						</h4>
-
-						{/* Buy Me a Coffee Button */}
 						<a
 							href='https://www.buymeacoffee.com/abby2727'
 							target='_blank'
@@ -27,20 +19,15 @@ const Footer = () => {
 							Buy Me a Coffee
 							<ExternalLink className='w-3 h-3' />
 						</a>
-
 						<p className='text-gray-500 text-xs mt-2'>
 							Free to use, but your support helps keep it going.
 						</p>
 					</div>
-
-					{/* Made with Love */}
 					<div className='text-center md:text-right'>
 						<p className='text-gray-500 text-sm'>
 							Made with{' '}
 							<Heart className='w-4 h-4 text-red-500 inline transition-all duration-300 hover:text-red-600 hover:fill-red-600 hover:scale-110 cursor-pointer' />
 						</p>
-
-						{/* SEO Description */}
 						<p className='text-gray-400 text-xs mt-2 max-w-md'>
 							Extract exact color values from images • Hex, RGB,
 							HSL codes • Free online tool for designers &

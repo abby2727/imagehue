@@ -1,9 +1,5 @@
-import React, { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'react';
 
-/**
- * MagnifyingGlass Component
- * Shows a circular magnified view of the area under the mouse cursor
- */
 const MagnifyingGlass = ({
 	isVisible,
 	mousePosition,
@@ -13,7 +9,6 @@ const MagnifyingGlass = ({
 }) => {
 	const magnifyCanvasRef = useRef(null);
 
-	// Check if user is on mobile device
 	const isMobile =
 		/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
 			navigator.userAgent
@@ -32,7 +27,6 @@ const MagnifyingGlass = ({
 
 		if (!magnifyCtx || !sourceCtx) return;
 
-		// Clear the magnifying canvas
 		magnifyCtx.clearRect(0, 0, size, size);
 
 		// Calculate source area to magnify
@@ -63,7 +57,6 @@ const MagnifyingGlass = ({
 		);
 
 		try {
-			// Get image data from source canvas
 			const imageData = sourceCtx.getImageData(
 				sourceX,
 				sourceY,
@@ -80,15 +73,12 @@ const MagnifyingGlass = ({
 			});
 			tempCtx.putImageData(imageData, 0, 0);
 
-			// Draw zoomed image
 			magnifyCtx.save();
 
-			// Create circular clipping path
 			magnifyCtx.beginPath();
 			magnifyCtx.arc(size / 2, size / 2, size / 2 - 2, 0, 2 * Math.PI);
 			magnifyCtx.clip();
 
-			// Draw the magnified image
 			magnifyCtx.drawImage(
 				tempCanvas,
 				0,
@@ -103,13 +93,10 @@ const MagnifyingGlass = ({
 
 			magnifyCtx.restore();
 
-			// Draw grid overlay
 			drawGrid(magnifyCtx, size, zoomLevel);
 
-			// Draw border
 			drawBorder(magnifyCtx, size);
 
-			// Draw center square highlight
 			drawCenterSquare(magnifyCtx, size, zoomLevel);
 		} catch (error) {
 			console.warn('Error drawing magnifying glass:', error);
@@ -147,9 +134,7 @@ const MagnifyingGlass = ({
 		ctx.restore();
 	};
 
-	/**
-	 * Draw border around the magnifying glass
-	 */
+	// Draw border around the magnifying glass
 	const drawBorder = (ctx, canvasSize) => {
 		ctx.save();
 		ctx.strokeStyle = 'rgba(255, 255, 255, 0.8)';
@@ -164,7 +149,6 @@ const MagnifyingGlass = ({
 		);
 		ctx.stroke();
 
-		// Inner shadow
 		ctx.strokeStyle = 'rgba(0, 0, 0, 0.2)';
 		ctx.lineWidth = 1;
 		ctx.beginPath();
@@ -180,27 +164,22 @@ const MagnifyingGlass = ({
 		ctx.restore();
 	};
 
-	/**
-	 * Draw center square highlight
-	 */
+	// Draw a semi-transparent square in the center of the magnifying glass
 	const drawCenterSquare = (ctx, canvasSize, zoom) => {
 		ctx.save();
 
 		const gridSize = canvasSize / zoom;
 		const center = canvasSize / 2;
 
-		// Calculate the center grid square boundaries
 		const centerGridX = Math.floor(zoom / 2);
 		const centerGridY = Math.floor(zoom / 2);
 
 		const squareX = centerGridX * gridSize;
 		const squareY = centerGridY * gridSize;
 
-		// Fill the center square with a semi-transparent highlight
 		ctx.fillStyle = 'rgba(255, 255, 255, 0.3)';
 		ctx.fillRect(squareX, squareY, gridSize, gridSize);
 
-		// Draw a thicker border around the center square
 		ctx.strokeStyle = 'rgba(255, 255, 255, 0.9)';
 		ctx.lineWidth = 2;
 		ctx.strokeRect(squareX, squareY, gridSize, gridSize);
@@ -213,36 +192,30 @@ const MagnifyingGlass = ({
 	}
 
 	// Calculate smart positioning to keep magnifier visible and close to cursor
-	const margin = 10; // Minimum distance from screen edges
+	const margin = 10;
 	const defaultOffsetX = 25;
 	const defaultOffsetY = -25;
 
-	// Get viewport dimensions
 	const viewportWidth = window.innerWidth;
 	const viewportHeight = window.innerHeight;
 
-	// Calculate base position
 	let offsetX = defaultOffsetX;
 	let offsetY = defaultOffsetY;
 
-	// Check if magnifier would go off the right edge
 	if (mousePosition.x + offsetX + size > viewportWidth - margin) {
-		offsetX = -size - 25; // Flip to left side
+		offsetX = -size - 25;
 	}
 
-	// Check if magnifier would go off the left edge
 	if (mousePosition.x + offsetX < margin) {
-		offsetX = 25; // Keep on right side
+		offsetX = 25;
 	}
 
-	// Check if magnifier would go off the top edge
 	if (mousePosition.y + offsetY < margin) {
-		offsetY = 25; // Flip to bottom
+		offsetY = 25;
 	}
 
-	// Check if magnifier would go off the bottom edge
 	if (mousePosition.y + offsetY + size > viewportHeight - margin) {
-		offsetY = -size - 25; // Keep on top
+		offsetY = -size - 25;
 	}
 
 	return (
@@ -267,7 +240,6 @@ const MagnifyingGlass = ({
 				}}
 			/>
 
-			{/* Zoom level indicator - Different text for mobile */}
 			<div className='absolute -bottom-6 left-1/2 transform -translate-x-1/2 text-xs text-white/70 bg-black/50 px-2 py-1 rounded whitespace-nowrap'>
 				{isMobile
 					? `${zoomLevel}x zoom`

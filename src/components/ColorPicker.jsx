@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { HexColorPicker, HexColorInput } from 'react-colorful';
 
-/**
- * ColorPicker Component
- * Provides a professional color picker interface using react-colorful
- */
 const ColorPicker = ({ onColorSelect }) => {
-	const [color, setColor] = useState('#e600c7'); // Default purple
+	const [color, setColor] = useState('#e600c7');
 
-	// Convert hex to RGB
 	const hexToRgb = (hex) => {
 		const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
 		return result
@@ -20,31 +15,27 @@ const ColorPicker = ({ onColorSelect }) => {
 			: { r: 0, g: 0, b: 0 };
 	};
 
-	// Handle color change
 	const handleColorChange = (newColor) => {
 		setColor(newColor);
 
 		const rgb = hexToRgb(newColor);
 
-		// Notify parent component with consistent format
 		onColorSelect({
 			r: rgb.r,
 			g: rgb.g,
 			b: rgb.b,
 			hex: newColor,
 			rgb: `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`,
-			position: { x: 0, y: 0 } // No position for color picker
+			position: { x: 0, y: 0 }
 		});
 	};
 
-	// Initialize with default color
 	useEffect(() => {
 		handleColorChange(color);
-	}, []); // Only run once on mount
+	}, []);
 
 	return (
 		<div className='space-y-6'>
-			{/* React Colorful Picker */}
 			<div className='color-picker-container'>
 				<HexColorPicker
 					color={color}
@@ -56,17 +47,13 @@ const ColorPicker = ({ onColorSelect }) => {
 				/>
 			</div>
 
-			{/* Color Info Section */}
 			<div className='space-y-4'>
-				{/* Hex Input */}
 				<div className='flex items-center gap-3'>
-					{/* Color Preview */}
 					<div
 						className='w-12 h-12 rounded-lg border-2 border-gray-300 shadow-lg flex-shrink-0'
 						style={{ backgroundColor: color }}
 					/>
 
-					{/* Hex Input Field */}
 					<div className='flex-1'>
 						<HexColorInput
 							color={color}
@@ -81,7 +68,6 @@ const ColorPicker = ({ onColorSelect }) => {
 					</div>
 				</div>
 
-				{/* Color Display Banner */}
 				<div className='text-center'>
 					<div
 						className='mx-auto mb-2 px-4 py-3 rounded-lg text-white font-bold text-lg shadow-lg'

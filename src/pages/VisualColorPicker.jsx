@@ -1,4 +1,3 @@
-import React from 'react';
 import { HexColorPicker, HexColorInput } from 'react-colorful';
 import ColorInfoPanel from '../components/ColorInfoPanel';
 import { useAppContext } from '../contexts/AppContext';
@@ -24,7 +23,6 @@ const VisualColorPicker = () => {
 		<main className='flex-1 px-4 py-8'>
 			<div className='max-w-7xl mx-auto'>
 				<div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
-					{/* Left Column - Color Picker */}
 					<div className='space-y-6'>
 						<div className='bg-white/20 backdrop-blur-sm border border-white/30 rounded-2xl p-6 shadow-lg'>
 							<h2 className='text-2xl font-bold text-gray-800 mb-6 flex items-center'>
@@ -34,7 +32,6 @@ const VisualColorPicker = () => {
 							</h2>
 
 							<div className='space-y-6'>
-								{/* Color Picker */}
 								<div className='flex flex-col items-center space-y-4'>
 									<div className='color-picker-container'>
 										<HexColorPicker
@@ -43,7 +40,6 @@ const VisualColorPicker = () => {
 										/>
 									</div>
 
-									{/* Color Input */}
 									<div className='w-full max-w-xs'>
 										<label className='block text-sm font-medium text-gray-700 mb-2'>
 											Hex Color
@@ -56,7 +52,6 @@ const VisualColorPicker = () => {
 										/>
 									</div>
 
-									{/* Color Preview */}
 									<div className='w-full max-w-xs'>
 										<label className='block text-sm font-medium text-gray-700 mb-2'>
 											Color Preview
@@ -73,7 +68,6 @@ const VisualColorPicker = () => {
 						</div>
 					</div>
 
-					{/* Right Column - Color Information */}
 					<div className='space-y-6'>
 						<ColorInfoPanel
 							selectedColor={selectedColor}

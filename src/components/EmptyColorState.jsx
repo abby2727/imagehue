@@ -1,10 +1,5 @@
-import React from 'react';
 import { Palette } from 'lucide-react';
 
-/**
- * EmptyColorState Component
- * Displays placeholder content when no color is selected in the color picker
- */
 const EmptyColorState = () => {
 	return (
 		<div className='text-center text-gray-500 py-12'>

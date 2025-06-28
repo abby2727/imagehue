@@ -1,11 +1,5 @@
 import { useState, useEffect } from 'react';
 
-/**
- * Custom hook for managing dismissible notifications with persistence
- * @param {string} key - Unique key for localStorage
- * @param {number} resetAfterDays - Number of days after which to show the notification again
- * @returns {object} - { isVisible, dismiss }
- */
 const useDismissibleNotification = (key, resetAfterDays = 1) => {
 	const [isVisible, setIsVisible] = useState(true);
 
@@ -18,16 +12,14 @@ const useDismissibleNotification = (key, resetAfterDays = 1) => {
 				const now = new Date().getTime();
 				const daysPassed = (now - dismissedAt) / (1000 * 60 * 60 * 24);
 
-				// If less than resetAfterDays have passed, keep it dismissed
+				// If the notification was dismissed less than resetAfterDays ago, hide it
 				if (daysPassed < resetAfterDays) {
 					setIsVisible(false);
 				} else {
-					// Reset - remove old data and show notification again
 					localStorage.removeItem(key);
 					setIsVisible(true);
 				}
 			} catch (error) {
-				// Invalid data, remove it and show notification
 				localStorage.removeItem(key);
 				setIsVisible(true);
 			}

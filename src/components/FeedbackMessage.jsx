@@ -1,9 +1,3 @@
-import React from 'react';
-
-/**
- * FeedbackMessage Component
- * Displays floating feedback messages to the user
- */
 const FeedbackMessage = ({ message }) => {
 	if (!message) {
 		return null;

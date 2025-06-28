@@ -1,10 +1,5 @@
-import React from 'react';
 import { Upload } from 'lucide-react';
 
-/**
- * ImageUploadArea Component
- * Displays the upload placeholder when no image is loaded
- */
 const ImageUploadArea = () => {
 	return (
 		<div className='absolute inset-0 flex items-center justify-center'>

@@ -11,7 +11,6 @@ export const useAppContext = () => {
 };
 
 export const AppProvider = ({ children }) => {
-	// Image Picker State
 	const [imagePickerState, setImagePickerState] = useState({
 		image: null,
 		selectedColor: null,
@@ -23,13 +22,11 @@ export const AppProvider = ({ children }) => {
 		isHoveringCanvas: false
 	});
 
-	// Visual Color Picker State
 	const [visualPickerState, setVisualPickerState] = useState({
 		colorValue: '#ff0000',
 		selectedColor: null
 	});
 
-	// Feedback state (shared between both modes)
 	const [feedback, setFeedback] = useState(null);
 
 	// Update image picker state
@@ -37,12 +34,10 @@ export const AppProvider = ({ children }) => {
 		setImagePickerState((prev) => ({ ...prev, ...updates }));
 	}, []);
 
-	// Update visual picker state
 	const updateVisualPickerState = useCallback((updates) => {
 		setVisualPickerState((prev) => ({ ...prev, ...updates }));
 	}, []);
 
-	// Generate selectedColor for visual picker
 	const generateVisualSelectedColor = useCallback((hexColor) => {
 		const hexToRgb = (hex) => {
 			const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(
@@ -66,11 +61,10 @@ export const AppProvider = ({ children }) => {
 			r: rgb.r,
 			g: rgb.g,
 			b: rgb.b,
-			position: { x: -1, y: -1 } // Visual picker doesn't have position
+			position: { x: -1, y: -1 }
 		};
 	}, []);
 
-	// Update visual picker color and generate selectedColor
 	const updateVisualPickerColor = useCallback(
 		(colorValue) => {
 			const selectedColor = generateVisualSelectedColor(colorValue);
@@ -82,7 +76,6 @@ export const AppProvider = ({ children }) => {
 		[generateVisualSelectedColor]
 	);
 
-	// Initialize visual picker selected color on mount
 	React.useEffect(() => {
 		if (!visualPickerState.selectedColor) {
 			const selectedColor = generateVisualSelectedColor(
@@ -97,16 +90,13 @@ export const AppProvider = ({ children }) => {
 	]);
 
 	const value = {
-		// Image Picker
 		imagePickerState,
 		updateImagePickerState,
 
-		// Visual Picker
 		visualPickerState,
 		updateVisualPickerState,
 		updateVisualPickerColor,
 
-		// Shared
 		feedback,
 		setFeedback
 	};
