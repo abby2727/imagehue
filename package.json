@@ -1,8 +1,9 @@
 {
 	"name": "imagehue",
 	"private": true,
-	"version": "1.1.18",
+	"version": "1.1.19",
 	"type": "module",
+	"author": "Abdul Pangandaman",
 	"scripts": {
 		"dev": "vite",
 		"build": "vite build",
