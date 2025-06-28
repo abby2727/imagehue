@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Palette, Bug, ExternalLink } from 'lucide-react';
+import { Palette, Bug, ExternalLink, Github } from 'lucide-react';
 import packageJson from '../../package.json';
 
 const Header = () => {
@@ -31,9 +31,21 @@ const Header = () => {
 					</div>
 
 					<div className='hidden md:flex flex-col items-end gap-2'>
-						<span className='bg-gray-100 text-gray-600 text-xs font-medium px-2 py-1 rounded-full'>
-							v{packageJson.version}
-						</span>
+						<div className='flex items-center gap-2'>
+							<a
+								href='https://github.com/abby2727/imagehue'
+								target='_blank'
+								rel='noopener noreferrer'
+								className='inline-flex items-center gap-1 bg-gray-800 hover:bg-gray-900 text-white text-xs font-medium px-2 py-1 rounded-full transition-colors duration-200 shadow-sm hover:shadow-md'
+							>
+								<Github className='w-3 h-3' />
+								GitHub
+								<ExternalLink className='w-2 h-2' />
+							</a>
+							<span className='bg-gray-100 text-gray-600 text-xs font-medium px-2 py-1 rounded-full'>
+								v{packageJson.version}
+							</span>
+						</div>
 						<a
 							href='mailto:abbydev261@gmail.com?subject=Bug Report - ImageHue&body=Hi,%0D%0A%0D%0AI found a bug in ImageHue:%0D%0A%0D%0A(explain what happen and include images if possible...)%0D%0A%0D%0AThanks!'
 							className='inline-flex items-center gap-1 bg-red-100 hover:bg-red-200 text-red-700 text-xs font-medium px-2 py-1 rounded-full transition-colors duration-200 shadow-sm hover:shadow-md'
