@@ -6,8 +6,7 @@ const useImageHandlerWithContext = (showFeedback) => {
 	const canvasRef = useRef(null);
 	const fileInputRef = useRef(null);
 
-	const defaultImageUrl =
-		'https://images.unsplash.com/photo-1541701494587-cb58502866ab?w=800&h=600&fit=crop&auto=format&q=80';
+	const defaultImageUrl = '/default-image.jpg';
 
 	const rgbToHex = useCallback((r, g, b) => {
 		const toHex = (n) => {
