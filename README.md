@@ -1,6 +1,6 @@
 # [ImageHue](https://imagehue.com/) - Your Ultimate Color Companion
 
-A modern, responsive web application crafted with creators, developers, and designers in mind. ImageHue is a professional image color picker and pixel color extractor tool that helps you get precise color data from any image quickly and easily.
+A modern, responsive web application crafted with creators, developers, and designers in mind. Built as an **open-source project**, **ImageHue** is a professional image color picker and pixel color extractor tool that helps you get precise color data from any image quickly and easily.
 
 ## Features
 
@@ -67,10 +67,6 @@ The application will be available at `http://localhost:5173`
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
-
-## Support
-
-If you encounter any issues or have questions, please create an issue in the repository or contact the development team.
 
 ---
 
