@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { HexColorPicker, HexColorInput } from 'react-colorful';
 
 const ColorPicker = ({ onColorSelect }) => {

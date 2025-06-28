@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useState, useCallback } from 'react';
+import {
+	createContext,
+	useContext,
+	useState,
+	useCallback,
+	useEffect
+} from 'react';
 
 const AppContext = createContext();
 
@@ -76,7 +82,7 @@ export const AppProvider = ({ children }) => {
 		[generateVisualSelectedColor]
 	);
 
-	React.useEffect(() => {
+	useEffect(() => {
 		if (!visualPickerState.selectedColor) {
 			const selectedColor = generateVisualSelectedColor(
 				visualPickerState.colorValue
