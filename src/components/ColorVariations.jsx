@@ -1,9 +1,10 @@
-import { useState } from 'react';
 import { ChevronDown, ChevronUp, Palette, Copy } from 'lucide-react';
 import { generateColorVariations } from '../utils/colorVariations';
+import { useAppContext } from '../contexts/AppContext';
 
 const ColorVariations = ({ selectedColor, onCopy }) => {
-	const [showVariations, setShowVariations] = useState(false);
+	const { uiStates, updateUiStates } = useAppContext();
+	const { showVariations } = uiStates;
 
 	if (!selectedColor) {
 		return null;
@@ -22,7 +23,9 @@ const ColorVariations = ({ selectedColor, onCopy }) => {
 	return (
 		<div className='pt-4 border-t border-gray-200'>
 			<button
-				onClick={() => setShowVariations(!showVariations)}
+				onClick={() =>
+					updateUiStates({ showVariations: !showVariations })
+				}
 				className='w-full flex items-center justify-center gap-2 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors group'
 			>
 				<Palette className='w-4 h-4 text-gray-500 group-hover:text-gray-700 transition-colors' />

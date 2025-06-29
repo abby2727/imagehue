@@ -1,10 +1,12 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { Copy, ChevronDown, ChevronUp } from 'lucide-react';
 import { getAllColorFormats } from '../utils/colorConversions';
+import { useAppContext } from '../contexts/AppContext';
 import ColorVariations from './ColorVariations';
 
 const ColorDisplay = ({ selectedColor, onCopy }) => {
-	const [showMoreFormats, setShowMoreFormats] = useState(false);
+	const { uiStates, updateUiStates } = useAppContext();
+	const { showMoreFormats } = uiStates;
 
 	const allFormats = useMemo(() => {
 		if (!selectedColor) return null;
@@ -82,7 +84,11 @@ const ColorDisplay = ({ selectedColor, onCopy }) => {
 				{/* Show More Toggle */}
 				<div className='pt-4 border-t border-gray-200'>
 					<button
-						onClick={() => setShowMoreFormats(!showMoreFormats)}
+						onClick={() =>
+							updateUiStates({
+								showMoreFormats: !showMoreFormats
+							})
+						}
 						className='w-full flex items-center justify-center gap-2 p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors group'
 					>
 						<span className='text-gray-700 font-medium'>

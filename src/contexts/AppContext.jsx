@@ -35,6 +35,12 @@ export const AppProvider = ({ children }) => {
 
 	const [feedback, setFeedback] = useState(null);
 
+	// Make UI States persist across page navigation
+	const [uiStates, setUiStates] = useState({
+		showMoreFormats: false,
+		showVariations: false
+	});
+
 	// Update image picker state
 	const updateImagePickerState = useCallback((updates) => {
 		setImagePickerState((prev) => ({ ...prev, ...updates }));
@@ -42,6 +48,11 @@ export const AppProvider = ({ children }) => {
 
 	const updateVisualPickerState = useCallback((updates) => {
 		setVisualPickerState((prev) => ({ ...prev, ...updates }));
+	}, []);
+
+	// Update UI states
+	const updateUiStates = useCallback((updates) => {
+		setUiStates((prev) => ({ ...prev, ...updates }));
 	}, []);
 
 	const generateVisualSelectedColor = useCallback((hexColor) => {
@@ -102,6 +113,9 @@ export const AppProvider = ({ children }) => {
 		visualPickerState,
 		updateVisualPickerState,
 		updateVisualPickerColor,
+
+		uiStates,
+		updateUiStates,
 
 		feedback,
 		setFeedback
