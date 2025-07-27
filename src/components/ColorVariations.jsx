@@ -1,16 +1,24 @@
+import { useState } from 'react';
 import { ChevronDown, ChevronUp, Palette, Copy } from 'lucide-react';
-import { generateColorVariations } from '../utils/colorVariations';
+import { generateTints, generateShades } from '../utils/colorVariations';
 import { useAppContext } from '../contexts/AppContext';
 
 const ColorVariations = ({ selectedColor, onCopy }) => {
 	const { uiStates, updateUiStates } = useAppContext();
 	const { showVariations } = uiStates;
+	const [showTints, setShowTints] = useState(true);
+	const [showShades, setShowShades] = useState(true);
 
 	if (!selectedColor) {
 		return null;
 	}
 
-	const variations = generateColorVariations(
+	const tints = generateTints(
+		selectedColor.r,
+		selectedColor.g,
+		selectedColor.b
+	);
+	const shades = generateShades(
 		selectedColor.r,
 		selectedColor.g,
 		selectedColor.b
@@ -18,6 +26,61 @@ const ColorVariations = ({ selectedColor, onCopy }) => {
 
 	const handleVariationClick = (variation) => {
 		onCopy(variation.hex);
+	};
+
+	const renderVariationGrid = (variations, type) => {
+		return (
+			<div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-2 mt-3'>
+				{variations.map((variation, index) => {
+					const isOriginal = variation.percentage === 0;
+					return (
+						<button
+							key={`${type}-${index}`}
+							onClick={() => handleVariationClick(variation)}
+							className={`group rounded-lg transition-all duration-200 relative text-center p-2 ${
+								isOriginal
+									? 'bg-blue-100 border-2 border-blue-500 ring-2 ring-blue-200'
+									: 'bg-white border border-gray-200 hover:border-gray-300'
+							}`}
+							title={`Copy ${variation.hex}`}
+						>
+							{isOriginal && (
+								<div className='absolute -top-2 -right-2 bg-blue-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full shadow-lg'>
+									★
+								</div>
+							)}
+							<div
+								className='w-full h-16 rounded-md mb-2 transition-transform group-hover:scale-105 border border-gray-300'
+								style={{ backgroundColor: variation.hex }}
+							/>
+							<div className='text-left'>
+								<div
+									className={`text-xs font-semibold ${
+										isOriginal
+											? 'text-blue-800'
+											: 'text-gray-700'
+									}`}
+								>
+									{variation.percentage}%
+								</div>
+								<div
+									className={`text-xs font-mono mt-1 ${
+										isOriginal
+											? 'text-blue-900 font-bold'
+											: 'text-gray-600'
+									}`}
+								>
+									{variation.hex}
+								</div>
+							</div>
+							<div className='absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity'>
+								<Copy className='w-3 h-3 text-gray-500' />
+							</div>
+						</button>
+					);
+				})}
+			</div>
+		);
 	};
 
 	return (
@@ -43,127 +106,56 @@ const ColorVariations = ({ selectedColor, onCopy }) => {
 
 			{showVariations && (
 				<div className='mt-4 space-y-4'>
-					<div className='bg-gray-50 p-4 rounded-lg'>
-						<h4 className='text-gray-700 text-sm font-medium mb-3 text-center'>
-							Tints & Shades (0% = White, 50% = Original, 100% =
-							Black)
-						</h4>
-
-						<div className='flex rounded-lg overflow-hidden shadow-lg border border-gray-200'>
-							{variations.map((variation, index) => {
-								const isOriginal = variation.percentage === 50;
-								return (
-									<button
-										key={index}
-										onClick={() =>
-											handleVariationClick(variation)
-										}
-										className={`flex-1 group relative ${
-											isOriginal
-												? 'ring-2 ring-white ring-offset-2 ring-offset-transparent z-10'
-												: ''
-										}`}
-										style={{
-											backgroundColor: variation.hex
-										}}
-										title={`${variation.percentage}% - ${
-											variation.hex
-										}${isOriginal ? ' (Original)' : ''}`}
-									>
-										<div className='h-12 w-full transition-transform group-hover:scale-105' />
-
-										<div className='absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-black/20'>
-											<span className='text-white text-xs font-bold drop-shadow-lg'>
-												{variation.percentage}%
-											</span>
-										</div>
-
-										{isOriginal && (
-											<div className='absolute -top-1 left-1/2 transform -translate-x-1/2'>
-												<div className='bg-gray-800 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg'>
-													Original
-												</div>
-											</div>
-										)}
-									</button>
-								);
-							})}
-						</div>
-
-						<div className='flex justify-between mt-2 px-1'>
-							{variations.map((variation, index) => (
-								<div key={index} className='flex-1 text-center'>
-									<span className='text-gray-500 text-xs font-medium'>
-										{variation.percentage}%
-									</span>
-								</div>
-							))}
-						</div>
+					{/* Tints Section */}
+					<div className='bg-gray-50 p-3 rounded-lg'>
+						<button
+							onClick={() => setShowTints(!showTints)}
+							className='w-full flex justify-between items-center'
+						>
+							<h4 className='text-gray-700 text-sm font-medium'>
+								Tints
+							</h4>
+							{showTints ? (
+								<ChevronUp className='w-4 h-4 text-gray-500' />
+							) : (
+								<ChevronDown className='w-4 h-4 text-gray-500' />
+							)}
+						</button>
+						{showTints && (
+							<>
+								<p className='text-xs text-gray-500 mt-2 text-center'>
+									Tints are created by adding white to a
+									color, making it lighter.
+								</p>
+								{renderVariationGrid(tints, 'tint')}
+							</>
+						)}
 					</div>
 
-					<div className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3'>
-						{variations.map((variation, index) => {
-							const isOriginal = variation.percentage === 50;
-							return (
-								<button
-									key={index}
-									onClick={() =>
-										handleVariationClick(variation)
-									}
-									className={`group p-3 rounded-lg transition-all duration-200 relative ${
-										isOriginal
-											? 'bg-gray-100 border-2 border-gray-400 ring-1 ring-gray-300'
-											: 'bg-gray-50 hover:bg-gray-100 border border-gray-200 hover:border-gray-300'
-									}`}
-									title={`Copy ${variation.hex}${
-										isOriginal ? ' (Original)' : ''
-									}`}
-								>
-									{isOriginal && (
-										<div className='absolute -top-2 -right-2 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg'>
-											★
-										</div>
-									)}
-
-									<div
-										className={`w-full h-8 rounded mb-2 transition-transform group-hover:scale-105 ${
-											isOriginal
-												? 'border-2 border-gray-400 ring-1 ring-gray-300'
-												: 'border border-gray-300'
-										}`}
-										style={{
-											backgroundColor: variation.hex
-										}}
-									/>
-
-									<div className='text-left'>
-										<div
-											className={`text-xs font-medium ${
-												isOriginal
-													? 'text-gray-800'
-													: 'text-gray-600'
-											}`}
-										>
-											{variation.percentage}%{' '}
-											{isOriginal ? '(Original)' : ''}
-										</div>
-										<div
-											className={`text-xs font-mono ${
-												isOriginal
-													? 'text-gray-800 font-bold'
-													: 'text-gray-700'
-											}`}
-										>
-											{variation.hex}
-										</div>
-									</div>
-
-									<div className='absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity'>
-										<Copy className='w-3 h-3 text-gray-500' />
-									</div>
-								</button>
-							);
-						})}
+					{/* Shades Section */}
+					<div className='bg-gray-50 p-3 rounded-lg'>
+						<button
+							onClick={() => setShowShades(!showShades)}
+							className='w-full flex justify-between items-center'
+						>
+							<h4 className='text-gray-700 text-sm font-medium'>
+								Shades
+							</h4>
+							{showShades ? (
+								<ChevronUp className='w-4 h-4 text-gray-500' />
+							) : (
+								<ChevronDown className='w-4 h-4 text-gray-500' />
+							)}
+						</button>
+						{showShades && (
+							<>
+								<p className='text-xs text-gray-500 mt-2 text-center'>
+									Shades are created by adding black to a
+									color, making it darker.
+								</p>
+								{renderVariationGrid(shades, 'shade')}
+							</>
+						)}
 					</div>
 
 					<div className='text-center text-gray-500 text-xs'>

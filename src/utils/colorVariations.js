@@ -116,6 +116,48 @@ export const generateColorVariations = (r, g, b, steps = 11) => {
 };
 
 /**
+ * Generate 10 tint variations for a color
+ * @param {number} r - Red (0-255)
+ * @param {number} g - Green (0-255)
+ * @param {number} b - Blue (0-255)
+ * @returns {array} Array of 10 tints
+ */
+export const generateTints = (r, g, b) => {
+	const tints = [];
+	for (let i = 0; i <= 10; i++) {
+		const factor = i / 10;
+		const tint = getTint(r, g, b, factor);
+		tints.push({
+			percentage: Math.round(factor * 100),
+			hex: rgbToHex(tint.r, tint.g, tint.b),
+			rgb: `rgb(${tint.r}, ${tint.g}, ${tint.b})`
+		});
+	}
+	return tints.reverse();
+};
+
+/**
+ * Generate 10 shade variations for a color
+ * @param {number} r - Red (0-255)
+ * @param {number} g - Green (0-255)
+ * @param {number} b - Blue (0-255)
+ * @returns {array} Array of 10 shades
+ */
+export const generateShades = (r, g, b) => {
+	const shades = [];
+	for (let i = 0; i <= 10; i++) {
+		const factor = i / 10;
+		const shade = getShade(r, g, b, factor);
+		shades.push({
+			percentage: Math.round(factor * 100),
+			hex: rgbToHex(shade.r, shade.g, shade.b),
+			rgb: `rgb(${shade.r}, ${shade.g}, ${shade.b})`
+		});
+	}
+	return shades;
+};
+
+/**
  * Get the closest variation percentage for a given color
  * @param {number} r - Red (0-255)
  * @param {number} g - Green (0-255)
